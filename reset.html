@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Veloxio</title>
+    <title>Reset Password - Veloxio</title>
     <link rel="icon" href="logo.jpg" />
     <link rel="stylesheet" href="reset.css" />
     <link
@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
       rel="stylesheet"
     />
     <link
@@ -25,63 +25,75 @@
     />
   </head>
   <body>
+    <!-- Navigation Bar -->
     <nav>
-      <input type="checkbox" id="check" name="" value="" />
+      <input type="checkbox" id="check" />
       <label for="check" id="checkbtn">
         <i class="fa fa-bars"></i>
       </label>
       <label class="logo">
-        <img src="icon.jpg" height="70px" width="150px" />
+        <img src="icon.jpg" alt="Logo" height="70px" width="150px" />
       </label>
       <ul>
         <li><a href="#" class="active">Home</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">About us</a></li>
-        <li><a href="#">Contact us</a></li>
+        <li><a href="#" onclick="alert('Coming Soon..')">Services</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
         <li><a href="#">Login/Signup</a></li>
       </ul>
     </nav>
-    <div class="reset-password-container">
+
+    <!-- Reset Password Form -->
+    <main class="reset-password-container">
       <form
         action="/reset"
+        method="POST"
         class="reset-password-form"
         onsubmit="return validatePasswords()"
       >
         <h2>Reset Password</h2>
-        <p>Please enter and confirm your new password.</p>
+        <p>Please enter your email and new password.</p>
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        />
+        <label for="new-password">New Password</label>
         <input
           type="password"
           id="new-password"
+          name="newPassword"
           placeholder="New Password"
           required
         />
+        <label for="confirm-password">Confirm Password</label>
         <input
           type="password"
           id="confirm-password"
+          name="confirmPassword"
           placeholder="Confirm New Password"
           required
         />
-        <p id="error-message" style="color: red; display: none">
-          Passwords do not match!
-        </p>
+        <p id="error-message" class="error-message">Passwords do not match!</p>
         <button type="submit">Reset Password</button>
       </form>
-    </div>
+    </main>
+
+    <!-- Footer -->
     <footer>
       <div class="fcontainer">
         <div class="footer-col">
-          <h2>MedLink</h2>
+          <h2>Veloxio</h2>
           <p class="footer-para">
-            It simplifies healthcare management, allows users to easily book
-            doctor appointments, select convenient time slots, and search for
-            doctors and hospitals in your area.
+            Simplifying healthcare management with easy doctor appointments,
+            time slot selection, and nearby doctor and hospital searches.
           </p>
         </div>
         <div class="footer-col">
-          <h3>
-            Menu
-            <div class="underline"><span></span></div>
-          </h3>
+          <h3>Menu</h3>
           <ul>
             <li><a href="home1.html">Home</a></li>
             <li><a href="#">About</a></li>
@@ -91,14 +103,13 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h3>
-            Newsletter
-            <div class="underline"><span></span></div>
-          </h3>
-          <form action="">
+          <h3>Newsletter</h3>
+          <form action="#">
             <i class="fa-solid fa-envelope"></i>
-            <input type="text" placeholder="Enter Email" />
-            <a href=""><i class="fa-solid fa-arrow-right"></i></a>
+            <input type="email" placeholder="Enter Email" required />
+            <button type="submit">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </form>
           <div class="social-icons">
             <a href="#"><i class="fa-brands fa-facebook"></i></a>
@@ -109,6 +120,21 @@
         </div>
       </div>
     </footer>
-    <script src="reset.js"></script>
+
+    <script>
+      function validatePasswords() {
+        const newPassword = document.getElementById("new-password").value;
+        const confirmPassword =
+          document.getElementById("confirm-password").value;
+        const errorMessage = document.getElementById("error-message");
+
+        if (newPassword !== confirmPassword) {
+          errorMessage.style.display = "block";
+          return false;
+        }
+        errorMessage.style.display = "none";
+        return true;
+      }
+    </script>
   </body>
 </html>

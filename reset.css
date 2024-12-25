@@ -62,6 +62,15 @@ body {
   border-radius: 5px;
   outline: none;
 }
+.reset-password-form input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+}
 
 .reset-password-form button {
   width: 100%;
@@ -74,21 +83,6 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease;
-}
-
-/* Dark mode adjustments */
-body.dark .reset-password-form {
-  background-color: #242526;
-}
-
-body.dark .reset-password-form h2,
-body.dark .reset-password-form p,
-body.dark .reset-password-form input[type="password"] {
-  color: black;
-}
-
-body.dark .reset-password-form button {
-  background-color: #333;
 }
 nav {
   width: 100%;
@@ -235,4 +229,7 @@ p {
 
 .footer-para {
   max-width: 250px;
+}
+.error-message {
+  display: none;
 }

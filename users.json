@@ -1,22 +1,7 @@
 [
-   {
-      "username": "mehak59",
-      "email": "mehakgarg598@gmail.com",
-      "password": "mehakgarg"
-   },
-   {
-      "username": "Mishtii",
-      "email": "mishi1987.be23@chitkara.edu.in",
-      "password": "2310991987"
-   },
-   {
-      "username": "mehakpreet",
-      "email": "mehakpreet1985.be23@chitkara.edu.in",
-      "password": "Mehak018"
-   },
-   {
-      "username": "himanshi",
-      "email": "himanshi1931.be23@chitkara.edu.in",
-      "password": "himanshi@123"
-   }
+  {
+    "username": "mehak59",
+    "email": "mehakgarg598@gmail.com",
+    "password": "mehakgarg"
+  }
 ]
