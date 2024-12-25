@@ -1,0 +1,264 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Calibri, sans-serif;
+}
+
+/* Navbar Styling */
+nav {
+    width: 100%;
+    height: 70px;
+    background-color: #AFD3E2;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+label.logo {
+    margin: 0 70px;
+}
+
+nav ul {
+    float: right;
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 70px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 8px 20px;
+}
+
+nav ul li a.active, a:hover {
+    background: #146C94;
+    color: white;
+}
+
+#checkbtn {
+    float: right;
+    line-height: 70px;
+    margin-right: 10px;
+    font-size: 30px;
+    color: white;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+#check:checked ~ ul {
+    left: 0;
+}
+
+#check:checked ~ #checkbtn {
+    color: #146C94;
+}
+
+@media (max-width: 884px) {
+    #checkbtn {
+        display: block;
+    }
+
+    nav ul {
+        width: 100%;
+        height: 100vh;
+        background-color: #146C94;
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        transition: 0.5s;
+    }
+
+    nav ul li {
+        display: block;
+        text-align: center;
+        line-height: 45px;
+        margin: 10px;
+    }
+
+    nav ul li a.active, a:hover {
+        background: #AFD3E2;
+        color: white;
+    }
+}
+
+/* Contact Form Section */
+.contact-form-section {
+    background-color: #fff;
+    padding: 40px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-width: 1000px; /* Larger width to accommodate both image and form */
+}
+
+.form-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Image Sidebar */
+.image-container {
+    flex: 1;
+    max-width: 45%;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Form Container */
+.form-container {
+    flex: 1;
+    max-width: 45%;
+}
+
+/* Form Styling */
+.contact-form-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+/* Fixed size for textarea */
+.form-group textarea {
+    width: 100%; /* or specify a fixed width, like '300px' */
+    height: 80px; /* Set a fixed height */
+    resize: none; /* Prevents resizing the textarea */
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-container,
+    .form-container {
+        max-width: 90%;
+    }
+}
+.scrollable-faq-section {
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1000px;
+    border-radius: 8px;
+}
+
+.scrollable-faq-section h3 {
+    font-size: 1.8em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.faq {
+    margin-bottom: 15px;
+}
+
+.faq p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.faq p strong {
+    color: #007bff;
+}
+
+.scrollable-faq-section {
+    max-height: 400px;
+    overflow-y: scroll; /* Makes the section scrollable */
+    padding-right: 15px;
+}
+/* Map Section Styling */
+.map-section {
+    background-color: #f4f4f4;
+    padding: 40px 20px;
+    margin-top: 30px;
+    border-radius: 8px;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.map-section h3 {
+    text-align: center;
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.map-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden; /* Ensures the map fits nicely */
+}
+
+.map-container iframe {
+    width: 100%;
+    max-width: 1000px; /* Makes sure the map doesn't stretch too far */
+    height: 400px; /* Fixed height for the map */
+    border: none;
+    border-radius: 8px;
+}
