@@ -205,15 +205,15 @@ select {
 }
 
 .title {
+    padding-top: 25px;
     font-size: 2.3rem;
     font-weight: 600;
     color: #4785b8;
     text-align: center;
-    padding-bottom: 25px;
 }
 
 .category-content {
-    padding-top: 15px;
+    padding-top:15px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, auto));
     align-items: center;
@@ -256,6 +256,7 @@ select {
     font-weight:300;
     text-align: center;
     color: rgb(99, 98, 98);
+    padding-bottom: 55px;
 }
 
 .category-content h4:hover {
