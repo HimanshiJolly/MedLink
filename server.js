@@ -9,6 +9,18 @@ const server = http.createServer((req, res) => {
     if (req.method === 'GET') {
         switch (req.url) {
             case '/': {
+                fs.readFile(path.join(__dirname, 'home1.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading the login page');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/login': {
                 fs.readFile(path.join(__dirname, 'login.html'), 'utf-8', (err, data) => {
                     if (err) {
                         res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -20,18 +32,7 @@ const server = http.createServer((req, res) => {
                 });
                 break;
             }
-            case '/dashboard': {
-                fs.readFile(path.join(__dirname, 'dashboard.html'), 'utf-8', (err, data) => {
-                    if (err) {
-                        res.writeHead(500, { 'Content-Type': 'text/plain' });
-                        res.end('Error reading the dashboard page');
-                        return;
-                    }
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.end(data);
-                });
-                break;
-            }
+            
             case '/forgot': {
                 fs.readFile(path.join(__dirname, 'forgot.html'), 'utf-8', (err, data) => {
                     if (err) {
@@ -68,7 +69,67 @@ const server = http.createServer((req, res) => {
                 });
                 break;
             }
-            
+            case '/about': {
+                fs.readFile(path.join(__dirname, 'Aboutus.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(404, { 'Content-Type': 'text/plain' });
+                        res.end('Reset page not found');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/contact': {
+                fs.readFile(path.join(__dirname, 'contact.html'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(404, { 'Content-Type': 'text/plain' });
+                        res.end('Reset page not found');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/icon.jpg': {
+                console.log('Serving image /icon.jpg');
+                fs.readFile(path.join(__dirname, 'icon.jpg'), (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading image file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/jpg' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/Aboutus.css': {
+                fs.readFile(path.join(__dirname, 'Aboutus.css'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading CSS file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/css' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/contact.css': {
+                fs.readFile(path.join(__dirname, 'contact.css'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading CSS file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/css' });
+                    res.end(data);
+                });
+                break;
+            }
             case '/login.css': {
                 fs.readFile(path.join(__dirname, 'login.css'), 'utf-8', (err, data) => {
                     if (err) {
@@ -93,6 +154,19 @@ const server = http.createServer((req, res) => {
                 });
                 break;
             }
+            case '/home1.css': {
+                fs.readFile(path.join(__dirname, 'home1.css'), 'utf-8', (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading CSS file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/css' });
+                    res.end(data);
+                });
+                break;
+            }
+            
             case '/register.css': {
                 fs.readFile(path.join(__dirname, 'register.css'), 'utf-8', (err, data) => {
                     if (err) {
@@ -174,6 +248,7 @@ const server = http.createServer((req, res) => {
         }
     } else if (req.method === 'POST') {
         switch (req.url) {
+            
             case '/login': {
                 let body = ''
                 req.on('data', chunk => {
@@ -198,11 +273,9 @@ const server = http.createServer((req, res) => {
                         const user = users.find(u => u.username === username && u.password === password)
 
                         if (user) {
-                            // If user is found, redirect to the dashboard
-                            res.writeHead(302, { 'Location': '/dashboard' })
+                            res.writeHead(302, { 'Location': '/home1' })
                             res.end()
                         } else {
-                            // If user is not found, redirect to the register page
                             res.writeHead(302, { 'Location': '/register' })
                             res.end()
                         }
@@ -225,16 +298,12 @@ const server = http.createServer((req, res) => {
 
                         if (!err && data) {
                             try {
-                                users = JSON.parse(data); // Safely parse the existing user data
+                                users = JSON.parse(data);
                             } catch (e) {
                                 console.error('Error parsing users.json:', e);
                             }
                         }
-
-                        // Push the new user data to the array
                         users.push(userData);
-
-                        // Write the updated array back to the JSON file
                         fs.writeFile(path.join(__dirname, 'users.json'), JSON.stringify(users, null, 3), (err) => {
                             if (err) {
                                 res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -325,7 +394,6 @@ const server = http.createServer((req, res) => {
                         const resetEmail = forgotEmails.find(f => f.email.toLowerCase() === normalizedEmail);
             
                         if (resetEmail) {
-                            // Email found in forgot.json, now update password in users.json
                             fs.readFile(path.join(__dirname, 'users.json'), 'utf-8', (err, userData) => {
                                 if (err) {
                                     res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -337,10 +405,7 @@ const server = http.createServer((req, res) => {
                                 const userIndex = users.findIndex(u => u.email.toLowerCase() === normalizedEmail);
             
                                 if (userIndex !== -1) {
-                                    // Update password
                                     users[userIndex].password = newPassword;
-            
-                                    // Debug log to check updated password
                                     console.log('Password updated for:', normalizedEmail);
             
                                     // Save the updated users.json
