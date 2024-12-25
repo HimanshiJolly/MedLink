@@ -264,6 +264,236 @@ select {
 }
 
 
+.container2{
+    margin-left:5%;
+    margin-bottom: 20px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ebf6faee;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 80vh;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .left-section2{
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  .doctor-image2 img {
+    width: 280px;
+    height: auto;
+    border-radius: 50%;
+    border: 5px solid #5b9ebb;;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .badge {
+    margin-top: 5px; /* Adjust badge position */
+    background-color: #fff; /* White background for contrast */
+    padding: 12px 18px; /* Reduced padding */
+    display: inline-block;
+    border: 1px solid #5b9ebb;; /* Matching modern theme */
+    border-radius: 50px; /* Rounded corners */
+    font-size: 16px; /* Smaller font size for the badge */
+    color: #5b9ebb;; /* Match button color */
+    position: absolute;
+    bottom: -20px; /* Adjust position to stay close to the image */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
+  .badge::before {
+    content: '\2764'; /* Heart icon */
+    color: red;
+    font-size: 16px; /* Smaller icon size */
+    margin-right: 8px; /* Adjust spacing */
+  }
+  
+  
+  .signup {
+    margin-top: 10px; /* Move sign-up section higher */
+    font-size: 14px; /* Decrease font size */
+    color: #333;
+    text-align: center;
+    background-color: #5b9ebb;; /* Modern background color */
+    padding: 10px 18px; /* Reduce padding */
+    border-radius: 30px; /* Rounded corners */
+    border: none;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    position: absolute; /* Position it on the top right */
+    top: 0;
+    right: 0;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+  
+  .signup span {
+    font-size: 12px; /* Smaller span text */
+    color: #fff;
+    display: block;
+    margin-top: 5px;
+  }
+  
+  
+  .right-section2{
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .right-section2 h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .right-section2 ul {
+    list-style: none;
+    margin-bottom: 20px;
+    padding-left: 0;
+  }
+  
+  .right-section2 ul li {
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .right-section2 ul li::before {
+    content: "\2713";
+    color: green;
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  
+  .appointment-btn {
+    background-color: #5b9ebb;;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .appointment-btn:hover {
+    background-color: #00595e;
+  }
+
+
+  /*Container*/
+
+  .container3{
+    margin: 5%;
+    width: 90%;
+    max-width: 1300px;
+    background-color: #ebf6faee;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-section {
+    max-width: 50%;
+}
+
+.text-section .heading {
+    font-size: 2.5rem;
+    color: #5b9ebb;;
+    margin-bottom: 20px;
+    margin-top: -20px; /* Raised higher */
+}
+
+.specialties {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.specialty {
+    display: flex;
+    align-items: center;
+    background-color: #f0f4ff;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1.1rem;
+    color: #333;
+    gap: 12px;
+}
+
+.show-more {
+    margin-top: 15px;
+    color: #5b9ebb;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.image-section {
+    text-align: center;
+    position: relative;
+}
+
+.doctor-image3{
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.badge1{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #f0f4ff;
+    border-radius: 20px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rating {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /*footer*/
 
 footer{
