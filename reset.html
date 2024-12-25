@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veloxio</title>
+    <link rel="icon" href="logo.jpg" />
+    <link rel="stylesheet" href="reset.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="reset-password-container">
+      <form
+        action="/reset"
+        class="reset-password-form"
+        onsubmit="return validatePasswords()"
+      >
+        <h2>Reset Password</h2>
+        <p>Please enter and confirm your new password.</p>
+        <input
+          type="password"
+          id="new-password"
+          placeholder="New Password"
+          required
+        />
+        <input
+          type="password"
+          id="confirm-password"
+          placeholder="Confirm New Password"
+          required
+        />
+        <p id="error-message" style="color: red; display: none">
+          Passwords do not match!
+        </p>
+        <button type="submit">Reset Password</button>
+      </form>
+    </div>
+    <script src="reset.js"></script>
+  </body>
+</html>
