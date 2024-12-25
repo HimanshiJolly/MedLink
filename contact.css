@@ -259,3 +259,84 @@ nav ul li a.active, a:hover {
     border: none;
     border-radius: 8px;
 }
+footer{
+    background-color: #AFD3E2 ;
+    border-top-left-radius: 100px;
+    width: 100%;
+}
+
+
+.fcontainer{
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 7%;
+}
+
+.footer-col{
+    width: 25%;
+}
+
+.footer-col h2{
+    color: #4785b8 ;
+    font-optical-sizing: 1.7em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.footer-col h3{
+    color: #4785b8 ;
+    margin-bottom: 20px;
+}
+
+
+
+.footer-col a,p{
+    color:#4785b8;
+    text-decoration: none;
+    text-align: left;
+
+}
+
+
+.footer-col ul{
+    list-style-type: none;
+} 
+
+.footer-col ul li{
+    margin: 10px;
+} 
+
+.footer-col form{
+    margin-top: 20px;
+    border-bottom: 1px solid rgba(38, 122, 231, 0.828);
+    padding-bottom: 10px;
+    display: flex;
+}
+
+.footer-col form input{
+    width: 70%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+}
+
+.footer-col form i{
+    font-size: 15px;
+}
+
+.footer-col .social-icons{
+    margin-top: 20px;
+}
+
+.footer-col .social-icons i{
+    padding: 10px;
+    background-color: white;
+    color: #00093c;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.footer-para{
+    max-width: 250px;
+}
