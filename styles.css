@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .left-section {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  
+  .doctor-image img {
+    width: 280px;
+    height: auto;
+    border-radius: 50%;
+    border: 5px solid #5b9ebb;;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .badge {
+    margin-top: 5px; /* Adjust badge position */
+    background-color: #fff; /* White background for contrast */
+    padding: 12px 18px; /* Reduced padding */
+    display: inline-block;
+    border: 1px solid #5b9ebb;; /* Matching modern theme */
+    border-radius: 50px; /* Rounded corners */
+    font-size: 16px; /* Smaller font size for the badge */
+    color: #5b9ebb;; /* Match button color */
+    position: absolute;
+    bottom: -20px; /* Adjust position to stay close to the image */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
+  .badge::before {
+    content: '\2764'; /* Heart icon */
+    color: red;
+    font-size: 16px; /* Smaller icon size */
+    margin-right: 8px; /* Adjust spacing */
+  }
+  
+  
+  .signup {
+    margin-top: 10px; /* Move sign-up section higher */
+    font-size: 14px; /* Decrease font size */
+    color: #333;
+    text-align: center;
+    background-color: #5b9ebb;; /* Modern background color */
+    padding: 10px 18px; /* Reduce padding */
+    border-radius: 30px; /* Rounded corners */
+    border: none;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    position: absolute; /* Position it on the top right */
+    top: 0;
+    right: 0;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+  
+  .signup span {
+    font-size: 12px; /* Smaller span text */
+    color: #fff;
+    display: block;
+    margin-top: 5px;
+  }
+  
+  
+  .right-section {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .right-section h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .right-section ul {
+    list-style: none;
+    margin-bottom: 20px;
+    padding-left: 0;
+  }
+  
+  .right-section ul li {
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .right-section ul li::before {
+    content: "\2713";
+    color: green;
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  
+  .appointment-btn {
+    background-color: #5b9ebb;;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .appointment-btn:hover {
+    background-color: #00595e;
+  }
+  
