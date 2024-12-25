@@ -1,0 +1,347 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Outfit", sans-serif;
+}
+
+nav {
+    width: 100%;
+    height: 70px;
+    background-color: #AFD3E2;
+}
+
+nav::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+label.logo {
+    margin: 0 70px;
+}
+
+nav ul {
+    float: right;
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 70px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    padding: 8px 20px;
+}
+
+nav ul li a.active,
+a:hover {
+    background: #146C94;
+    color: white;
+}
+
+#checkbtn {
+    float: right;
+    line-height: 70px;
+    margin-right: 10px;
+    font-size: 30px;
+    color: white;
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+#check:checked~ul {
+    left: 0;
+}
+
+#check:checked~#checkbtn {
+    color: #146C94;
+}
+
+/* Main container styling */
+.container1 {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin-top: 5px;
+    gap: 20px;
+}
+
+.left-section {
+    width: 50%;
+    padding-top: 5px;
+    padding-left: 55px;
+
+}
+
+.left-section h1 {
+    font-size: 2.7rem;
+    margin-bottom: 20px;
+    color: #4785b8;
+}
+
+.left-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #2e6bb0;
+}
+
+
+
+.appointment-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: 2px solid #9b3e99;
+    /* Purple border */
+    border-radius: 15px;
+    /* Rounded corners */
+    padding: 25px;
+    /* Adjust padding inside the form */
+}
+.appointment-form h3 {
+    color:#4785b8; 
+    font-size: 1.7rem; 
+    margin-bottom: 20px; 
+}
+
+
+.appointment-form input,
+select {
+    padding: 15px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.appointment-form button {
+    padding: 15px 30px;
+    background-color: #bb21e9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.appointment-form button:hover {
+    background-color: #0056b3;
+}
+
+.right-section {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    text-align: center;
+    background-color: #AFD3E2;
+    padding: 20px;
+    align-items: center;
+    height: 100vh;
+}
+
+.doctor-image {
+    padding-top: 30px;
+    max-width: 90%;
+    border-radius: 190px;
+    box-shadow: 0 4px 8px rgba(58, 57, 59, 0.1);
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat p {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.stat span {
+    font-size: 1rem;
+    color: #666;
+}
+
+.join-btn {
+    margin-top: 40px;
+    padding: 15px 30px;
+    background-color: #28A745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.join-btn:hover {
+    background-color: #1c7c30;
+}
+
+
+/*Category*/
+.categories {
+    position: relative;
+    padding: 20px 120px 10px 120px;
+}
+
+.categories {
+    align-items: center;
+}
+
+.title {
+    font-size: 2.3rem;
+    font-weight: 600;
+    color: #4785b8;
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.category-content {
+    padding-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, auto));
+    align-items: center;
+    text-align: center;
+    gap: 3rem;
+}
+
+.image {
+    overflow: hidden;
+    width: 130px;
+    height: 130px;
+    margin: 20px auto;
+    border-radius: 50%;
+    border: 1px rgb(43, 119, 226) solid;
+    cursor: pointer;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s;
+}
+
+.image img:hover {
+    transform: scale(1.2);
+}
+
+.category-content h4 {
+    font-size: 22px;
+    font-weight:600;
+    color: #4785b8;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.category-content p {
+    padding: 5px;
+    font-size: 18px;
+    font-weight:300;
+    text-align: center;
+    color: rgb(99, 98, 98);
+}
+
+.category-content h4:hover {
+    color: coral;
+}
+
+
+
+footer{
+    background-color: #AFD3E2 ;
+    border-top-left-radius: 100px;
+    width: 100%;
+}
+
+
+.fcontainer{
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 7%;
+}
+
+.footer-col{
+    width: 25%;
+}
+
+.footer-col h2{
+    color: #4785b8 ;
+    font-optical-sizing: 1.7em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.footer-col h3{
+    color: #4785b8 ;
+    margin-bottom: 20px;
+}
+
+
+
+.footer-col a,p{
+    color:#4785b8;
+    text-decoration: none;
+    text-align: left;
+
+}
+
+
+.footer-col ul{
+    list-style-type: none;
+} 
+
+.footer-col ul li{
+    margin: 10px;
+} 
+
+.footer-col form{
+    margin-top: 20px;
+    border-bottom: 1px solid rgba(38, 122, 231, 0.828);
+    padding-bottom: 10px;
+    display: flex;
+}
+
+.footer-col form input{
+    width: 70%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+}
+
+.footer-col form i{
+    font-size: 15px;
+}
+
+.footer-col .social-icons{
+    margin-top: 20px;
+}
+
+.footer-col .social-icons i{
+    padding: 10px;
+    background-color: white;
+    color: #00093c;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.footer-para{
+    max-width: 250px;
+}
