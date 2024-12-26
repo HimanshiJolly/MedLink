@@ -83,8 +83,104 @@ const server = http.createServer((req, res) => {
                 break;
             }
             case '/icon.jpg': {
-                console.log('Serving image /icon.jpg');
                 fs.readFile(path.join(__dirname, 'icon.jpg'), (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading image file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/jpg' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/appointmentbooking.avif': {
+                fs.readFile(path.join(__dirname, 'appointmentbooking.avif'), (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading image file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/avif' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/contact.jpg': {
+                fs.readFile(path.join(__dirname, 'contact.jpg'), (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading image file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/jpg' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/doctor.jpg': {
+                fs.readFile(path.join(__dirname, 'doctor.jpg'), (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading image file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/jpg' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/doctor.png': {
+                fs.readFile(path.join(__dirname, 'doctor.png'), (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading image file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/png' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/hospital.avif': {
+                fs.readFile(path.join(__dirname, 'hospital.avif'), (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading image file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/avif' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/iconhead.jpg': {
+                fs.readFile(path.join(__dirname, 'iconhead.jpg'), (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading image file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/jpg' });
+                    res.end(data);
+                });
+                break;
+            }
+            case '/location.avif': {
+                fs.readFile(path.join(__dirname, 'location.avif'), (err, data) => {
+                    if (err) {
+                        res.writeHead(500, { 'Content-Type': 'text/plain' });
+                        res.end('Error reading image file');
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'image/avif' });
+                    res.end(data);
+                });
+                break;
+                
+            }
+            case '/scope.jpg': {
+                fs.readFile(path.join(__dirname, 'scope.jpg'), (err, data) => {
                     if (err) {
                         res.writeHead(500, { 'Content-Type': 'text/plain' });
                         res.end('Error reading image file');
@@ -206,6 +302,7 @@ const server = http.createServer((req, res) => {
                 });
                 break;
             }
+
             
             
             default: {
@@ -224,19 +321,13 @@ const server = http.createServer((req, res) => {
 
                 req.on('end', () => {
                     const { username, password } = querystring.parse(body)
-
-                    // Read the users from the users.json file
                     fs.readFile(path.join(__dirname, 'users.json'), 'utf-8', (err, data) => {
                         if (err) {
                             res.writeHead(500, { 'Content-Type': 'text/plain' })
                             res.end('Error reading user data')
                             return
                         }
-
-                        // Parse the users data
                         const users = JSON.parse(data)
-
-                        // Authenticate the user by checking the username and password
                         const user = users.find(u => u.username === username && u.password === password)
 
                         if (user) {
