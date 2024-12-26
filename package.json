@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "MedLink: A Comprehensive Hospital Network Platform  MedLink is an innovative web-based platform designed to connect a network of hospitals, providing users with easy access to healthcare services, appointment scheduling, and medical information. Built with modern web technologies including HTML, CSS, JavaScript, and Node.js.",
   "dependencies": {
     "express": "^4.21.2"
   }
