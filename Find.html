@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find My Doctor</title>
+    <link rel="stylesheet" href="shine.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Medlink</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Find a doctor</a>
+            <a href="#">About us</a>
+            <a href="#" class="client-zone">Client zone</a>
+        </nav>
+    </header>
+
+    <section class="search-section">
+        <div class="search-container">
+            <h1>Search for a specialist and make an appointment</h1>
+            <p>Select your doctor and preferred time slot to book your appointment</p>
+            <div class="booking-form">
+                <select>
+                    <option value="">Speciality / Doctor / Hospital</option>
+                </select>
+                <input type="text" placeholder="Location">
+                <input type="date">
+                <button>Search</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="results-section">
+        <div class="results-container">
+            <div class="filter-section">
+                <h2>Refine your search</h2>
+                <input type="text" placeholder="Search">
+                <h3>Speciality</h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="general">
+                        <label for="general">
+                            <img src="https://cdn-icons-png.flaticon.com/128/46/46196.png" alt="General practitioner logo" class="speciality-logo"> General practitioner
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="dentistry" checked>
+                        <label for="dentistry">
+                            <img src="https://cdn-icons-png.flaticon.com/128/3467/3467825.png" alt="Dentistry logo" class="speciality-logo"> Dentistry
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="neurology">
+                        <label for="neurology">
+                            <img src="https://cdn-icons-png.flaticon.com/128/9133/9133647.png" alt="Neurology logo" class="speciality-logo"> Neurology
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="xray">
+                        <label for="xray">
+                            <img src="https://cdn-icons-png.flaticon.com/128/4006/4006101.png" alt="X-ray logo" class="speciality-logo"> X-Ray
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="dermatology">
+                        <label for="dermatology">
+                            <img src="https://cdn-icons-png.flaticon.com/128/7305/7305176.png" alt="Dermatology logo" class="speciality-logo"> Dermatology
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="urology">
+                        <label for="urology">
+                            <img src="https://cdn-icons-png.flaticon.com/128/2184/2184274.png" alt="Urology logo" class="speciality-logo"> Urology
+                        </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="psychiatry">
+                        <label for="psychiatry">
+                            <img src="https://cdn-icons-png.flaticon.com/128/4637/4637907.png" alt="Psychiatry logo" class="speciality-logo"> Psychiatry
+                        </label>
+                    </li>
+                </ul>
+                <h3>Qualification</h3>
+                <ul>
+                    <li><input type="checkbox" id="mbbs"> <label for="mbbs">MBBS</label></li>
+                    <li><input type="checkbox" id="mbbch"> <label for="mbbch">MBBch</label></li>
+                    <li><input type="checkbox" id="md"> <label for="md">MD</label></li>
+                    <li><input type="checkbox" id="do"> <label for="do">DO</label></li>
+                </ul>
+                <h3>Country</h3>
+                <ul>
+                    <li><input type="checkbox" id="denmark" checked> <label for="denmark">Denmark (DK)</label></li>
+                </ul>
+                <h3>District</h3>
+                <ul>
+                    <li><input type="checkbox" id="copenhagen" checked> <label for="copenhagen">Copenhagen (CPH)</label></li>
+                </ul>
+                <button class="update-search">Update search</button>
+            </div>
+            <div class="doctor-list">
+                <div class="list-header">
+                    <p>Showing 175 search results</p>
+                    <select>
+                        <option value="highest">Sort by: Highest rated</option>
+                    </select>
+                </div>
+                <div class="doctor-cards">
+                    <div class="doctor-card">
+                        <img src="one.jpg" alt="Doctor 1">
+                        <h3>Dr. James Wilson</h3>
+                        <p>General practitioner</p>
+                    </div>
+                    <div class="doctor-card">
+                        <img src="two.jpg" alt="Doctor 2">
+                        <h3>Dr. Shaurya Khanna</h3>
+                        <p>Neurology</p>
+                    </div>
+                    <div class="doctor-card">
+                        <img src="three.jpg" alt="Doctor 3">
+                        <h3>Dr. Ethan Miller</h3>
+                        <p>Dentistry</p>
+                    </div>
+                    <div class="doctor-card">
+                        <img src="four.jpg" alt="Doctor 4">
+                        <h3>Gill Hames</h3>
+                        <p>Psychiatry</p>
+                    </div>
+                    <div class="doctor-card">
+                        <img src="five.jpg" alt="Doctor 5">
+                        <h3>Dr. Kendra Wilson</h3>
+                        <p>Pathology</p>
+                    </div>
+                    <div class="doctor-card">
+                        <img src="six.jpg" alt="Doctor 6">
+                        <h3>Dr. Silas Reed</h3>
+                        <p>Prosthodontics</p>
+                    </div>
+                    <div class="doctor-card">
+                        <img src="seven.jpg" alt="Doctor 7">
+                        <h3>Dr. Ava Thomas</h3>
+                        <p>Gynecologist</p>
+                    </div>
+                    <div class="doctor-card">
+                        <img src="eight.jpg" alt="Doctor 8">
+                        <h3>Richard Kicker</h3>
+                        <p>Urology</p>
+                    </div>
+                    <div class="doctor-card">
+                        <img src="nine.jpg" alt="Doctor 9">
+                        <h3>Dr. Ella Walker</h3>
+                        <p>Dermatology</p>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <a href="#">&lt;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">...</a>
+                    <a href="#">20</a>
+                    <a href="#">&gt;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

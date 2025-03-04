@@ -1,0 +1,223 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    
+}
+
+header {
+    background-color: #17a2ae; /* Use your desired color */
+    color: #333; /* Adjust text color if needed */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+header .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+header nav a.client-zone {
+    background-color: rgb(123, 177, 195);
+    padding: 8px 15px;
+    border-radius: 5px;
+   
+}
+
+.search-section {
+    background-color: #17a2ae; /* Use the same color as the header */
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.search-section h1 {
+     font-size: 34px;
+}
+
+.search-section p {
+    opacity: 0.8;
+}
+
+.search-container {
+    max-width: 800px;
+    margin: 0 auto;
+    color: white;
+    }
+
+.booking-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    
+}
+
+.booking-form select,
+.booking-form input,
+.booking-form button {
+    padding: 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+}
+
+.booking-form button {
+    background-color: #95d5db;;
+    color: white;
+    cursor: pointer;
+    
+}
+
+.results-section {
+    padding: 20px;
+}
+
+.results-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.filter-section {
+    width: 25%;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+}
+
+
+.filter-section h2,
+.filter-section h3 {
+    margin-bottom: 15px; /* Increase margin below headings */
+    color: #17a2ae;
+}
+
+.filter-section ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px; /* Add space between lists */
+}
+
+
+.filter-section ul li {
+    margin-bottom: 10px; /* Add space between list items */
+}
+
+.filter-section input[type="text"] {
+    margin-bottom: 15px; /* Add space below search input */
+    padding: 8px; /* Add some padding to the input */
+    width: 100%; /* Make input take full width */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+.filter-section .update-search {
+    background-color: #17a2ae;
+    color: white;
+    padding: 12px 25px; /* Increase padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 25px; /* Increase top margin */
+}
+
+.doctor-list {
+    width: 75%; /* Adjust as needed */
+    padding: 20px;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.doctor-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+    grid-gap: 20px;
+    
+}
+
+.doctor-card {
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center; /* Center text content */
+    /* Remove the border */
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    transition: transform 0.3s ease; /* Add smooth transition */
+}
+
+.doctor-card:hover {
+    transform: translateY(-5px); /* Add a slight lift on hover */
+}
+
+.doctor-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+
+.doctor-card h3 {
+    font-size: 1.3em; /* Increased font size */
+    color: #17a2ae;
+}
+
+.doctor-card p {
+    color: #768081;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.doctor-list p {
+    color: #17a2ae;
+    opacity: 0.7;
+}
+
+.list-header select {
+    color: #17a2ae;
+    border: none; 
+    outline: none;
+    }
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: 1px solid #dcd1d1;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination a.active {
+    background-color: #17a2ae;;
+    color: white;
+}
+
+/* ... other styles ... */
+
+.speciality-logo {
+    width: 20px; /* Reduced width */
+    height: 18px; /* Reduced height */
+    margin-right: 5px;
+    vertical-align: middle; /* Align with text */
+}
+
+/* ... other styles ... */
