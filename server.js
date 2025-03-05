@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 })
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'login.html')) // Serve the dashboard HTML file
+
 })
 app.get('/services', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Services.html')) // Serve the dashboard HTML file
