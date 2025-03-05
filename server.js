@@ -19,6 +19,34 @@ app.get('/login', (req, res) => {
   app.get('/services', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'Services.html')) // Serve the dashboard HTML file
   })
+  app.get('/findhospital', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'findHospital.html')) // Serve the dashboard HTML file
+  })
+  app.get('/clientzone', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'home1.html')) // Serve the dashboard HTML file
+  })
+  app.get('/finddoctor', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'Find.html')) // Serve the dashboard HTML file
+  })
+  app.get('/Appointment', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) // Serve the dashboard HTML file
+  })
+  app.get('/emergency', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'home1.html')) // Serve the dashboard HTML file
+  })
+  app.get('/onlineconsultation', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) // Serve the dashboard HTML file
+  })
+  app.get('/pharmacy', (req, res) => {
+    
+    res.sendFile(path.join(__dirname, 'views', 'medicine.html')) // Serve the dashboard HTML file
+  })
+  app.get('/healthpackages', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'medicine.html')) // Serve the dashboard HTML file
+  })
+  app.get('/services', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'Services.html')) // Serve the dashboard HTML file
+  })
 
 // Serve register.html when user needs to register
 app.get('/register', (req, res) => {
