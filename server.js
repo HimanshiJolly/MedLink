@@ -37,6 +37,9 @@ app.get('/contact', (req, res) => {
 app.get('/finddoctor', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Find.html')) // Serve the register HTML file
 })
+app.get('/Appointment', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) // Serve the register HTML file
+})
 
 // Use error handler middleware for catching and handling errors
 app.use(errorHandler) // Handle errors globally
