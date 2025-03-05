@@ -41,6 +41,10 @@ app.get('/Appointment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) // Serve the register HTML file
 })
 
+app.get('/findhospital', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) // Serve the register HTML file
+})
+
 // Use error handler middleware for catching and handling errors
 app.use(errorHandler) // Handle errors globally
 // Start the server and listen on the specified port
