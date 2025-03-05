@@ -20,6 +20,9 @@ app.get('/login', (req, res) => {
 app.get('/services', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Services.html')) // Serve the dashboard HTML file
 })
+app.get('/pharmacy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'medicine.html')) // Serve the dashboard HTML file
+})
 // Serve register.html when user needs to register
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'register.html')) // Serve the register HTML file
@@ -30,6 +33,18 @@ app.get('/about', (req, res) => {
 app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'contact.html')) // Serve the register HTML file
 })
+
+app.get('/finddoctor', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'Find.html')) // Serve the register HTML file
+})
+app.get('/Appointment', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) // Serve the register HTML file
+})
+
+app.get('/findhospital', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) // Serve the register HTML file
+})
+
 // Use error handler middleware for catching and handling errors
 app.use(errorHandler) // Handle errors globally
 // Start the server and listen on the specified port
