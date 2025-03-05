@@ -4,50 +4,54 @@ const app = express()
 const PORT = 8080
 const logger = require('./middlewares/logger') 
 const errorHandler = require('./middlewares/errorHandler') 
+const session = require('express-session')
+const authMiddleware = require('./middlewares/authMiddleware')
+app.use(session({
+  secret: '567890', 
+  resave: false,
+  saveUninitialized: true,
+}))
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
 app.use(logger) 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(authMiddleware)
 const apiRoutes = require('./api/apiRoutes') 
 app.use('/api', apiRoutes) 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'home1.html')) // Serve the login page at root URL
+  res.sendFile(path.join(__dirname, 'views', 'home1.html')) 
 })
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'login.html')) // Serve the dashboard HTML file
+    res.sendFile(path.join(__dirname, 'views', 'login.html')) 
 
 })
 app.get('/services', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'Services.html')) // Serve the dashboard HTML file
+  res.sendFile(path.join(__dirname, 'views', 'Services.html')) 
 })
 app.get('/pharmacy', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'medicine.html')) // Serve the dashboard HTML file
+  res.sendFile(path.join(__dirname, 'views', 'medicine.html')) 
 })
-// Serve register.html when user needs to register
 app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'register.html')) // Serve the register HTML file
+  res.sendFile(path.join(__dirname, 'views', 'register.html')) 
 })
 app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'Aboutus.html')) // Serve the register HTML file
+    res.sendFile(path.join(__dirname, 'views', 'Aboutus.html')) 
 })
 app.get('/contact', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'contact.html')) // Serve the register HTML file
+  res.sendFile(path.join(__dirname, 'views', 'contact.html')) 
 })
 
 app.get('/finddoctor', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'Find.html')) // Serve the register HTML file
+  res.sendFile(path.join(__dirname, 'views', 'Find.html')) 
 })
 app.get('/Appointment', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) // Serve the register HTML file
+  res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) 
 })
 
 app.get('/findhospital', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) // Serve the register HTML file
+  res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) 
 })
-
-// Use error handler middleware for catching and handling errors
-app.use(errorHandler) // Handle errors globally
-// Start the server and listen on the specified port
+app.use(errorHandler) 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
 })
