@@ -35,7 +35,13 @@
         <li><a href="services">Services</a></li>
         <li><a href="/about">About us</a></li>
         <li><a href="/contact">Contact us</a></li>
-        <li><a href="/login">Login/Signup</a></li>
+        <li id="login">
+          <a href="/login">Login/Signup</a>
+        </li>
+        <li id="user-info" style="display: none">
+          <a href="#">Welcome, <span id="username"></span>!</a>
+          <a href="#" id="logout-btn">Logout</a>
+        </li>
       </ul>
     </nav>
     <section class="container1">
@@ -233,4 +239,5 @@
       </div>
     </footer>
   </body>
+  <script src="js/home1.js"></script>
 </html>
