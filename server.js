@@ -4,6 +4,7 @@ const app = express()
 const PORT = 8080
 const logger = require('./middlewares/logger') 
 const errorHandler = require('./middlewares/errorHandler') 
+const helmet = require('./middlewares/helmet')
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
 app.use(logger) 
