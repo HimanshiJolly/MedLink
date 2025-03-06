@@ -4,7 +4,7 @@ const app = express()
 const PORT = 8080
 const logger = require('./middlewares/logger') 
 const errorHandler = require('./middlewares/errorHandler') 
-
+const allowCors = require('./middlewares/cors');
 const session = require('express-session')
 const authMiddleware = require('./middlewares/authMiddleware')
 app.use(session({
@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(logger)
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(morganLogger)
+app.use(allowCors);
 app.use(devLogger)
 app.use(authMiddleware) 
 const apiRoutes = require('./api/apiRoutes') 
