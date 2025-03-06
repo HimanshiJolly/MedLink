@@ -20,13 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Initialize the sliders 4 times for both "products" and "products1"
+   
     for (let i = 0; i < 4; i++) {
         initializeSlider("products");
         initializeSlider("products1");
     }
 
-    // Image carousel slider
+   
     let index = 0;
     function moveSlide(step) {
         const slides = document.querySelector('.slides');
@@ -35,11 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalSlides = slides.children.length;
         index = (index + step + totalSlides) % totalSlides;
 
-        // Ensure the slider moves correctly
+        
         slides.style.transform = `translateX(${-index * slides.clientWidth}px)`;
     }
 
-    // Make moveSlide globally accessible
+    
     window.moveSlide = moveSlide;
 });
 
@@ -58,19 +58,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
 function addToCart(name, price) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let existingItem = cart.find(item => item.name === name);
-    
+
     if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += 1; 
     } else {
-        cart.push({ name, price, quantity: 1 });
+        cart.push({ name, price, quantity: 1 }); 
     }
-    
+
     localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
+    updateCartCount(); 
 }
+
 
 function updateCartCount() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];

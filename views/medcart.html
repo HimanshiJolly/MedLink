@@ -4,52 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="medcart.css">
-    <script src="medcart.js"></script>
+    <link rel="stylesheet" href="styles/medcart.css">
+    <script src="js/medcart.js"></script>
 </head>
 <body>
     <nav>
         <label class="logo">
-            <a href="medicine.html"><img src="icon.jpg" height="70px" width="150px"></a>
+            <img src="images/icon.jpg" height="70px" width="150px"></a>
         </label>
+        <a href="/pharmacy" class="back-button">← Back to Shopping</a>
     </nav>
 
+    
     <section class="cart-section">
         <h2>Your Shopping Cart</h2>
         <div id="cart-items"></div>
         <p id="cart-total"></p>
-        <button onclick="clearCart()">Clear Cart</button>
+        <button id="clear-cart-btn">Clear Cart</button>
     </section>
 
-    <script>
-        function loadCart() {
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            let cartItems = document.getElementById('cart-items');
-            let cartTotal = document.getElementById('cart-total');
-            cartItems.innerHTML = '';
-            let total = 0;
-
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p>Your cart is empty.</p>';
-                cartTotal.innerHTML = '';
-                return;
-            }
-
-            cart.forEach(item => {
-                let div = document.createElement('div');
-                div.innerHTML = `<p>${item.name} - ₹${item.price} x ${item.quantity}</p>`;
-                cartItems.appendChild(div);
-                total += item.price * item.quantity;
-            });
-            cartTotal.innerHTML = `Total: ₹${total.toFixed(2)}`;
-        }
-
-        function clearCart() {
-            localStorage.removeItem('cart');
-            loadCart();
-        }
-
-        window.onload = loadCart;
-    </script>
 </body>
 </html>
