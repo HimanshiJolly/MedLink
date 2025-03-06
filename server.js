@@ -34,6 +34,9 @@ app.get('/services', (req, res) => {
 app.get('/pharmacy', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'medicine.html')) 
 })
+app.get('/cart', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'medcart.html')) 
+})
 app.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'register.html')) 
 })
