@@ -6,6 +6,11 @@
     "password": "mehakgarg"
   },
   {
+<<<<<<< HEAD
+    "name": "Mehak",
+    "username": "mehak567",
+    "email": "mehak1983.be23@chitkara.edu.in",
+=======
     "name": "Mishti Kharra",
     "username": "msihti87",
     "email": "mishti1987.be23@chitkara.edu.in",
@@ -15,6 +20,7 @@
     "name": "Mishti Kharra",
     "username": "msihti87",
     "email": "mishti1987.be23@chitkara.edu.in",
+>>>>>>> 2e8e7d2d4600df61988ff1f36e30223a43ff9681
     "password": "12345678"
   },
   {
