@@ -4,7 +4,7 @@ const app = express()
 const PORT = 8080
 const logger = require('./middlewares/logger') 
 const errorHandler = require('./middlewares/errorHandler') 
-const allowCors = require('./middlewares/cors');
+const allowCors = require('./middlewares/cors')
 const session = require('express-session')
 const helmetMiddleware = require('./middlewares/helmet');
 const authMiddleware = require('./middlewares/authMiddleware')
@@ -13,18 +13,19 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }))
-const compression = require('./middlewares/compression');
-app.use(compression);
+const compression = require('./middlewares/compression')
 const {morganLogger, devLogger} = require('./middlewares/morgan')
+app.use(compression);
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
 app.use(logger)
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(morganLogger)
 app.use(allowCors);
 app.use(helmetMiddleware);
+app.use(morganLogger)
 app.use(devLogger)
 app.use(authMiddleware) 
+
 const apiRoutes = require('./api/apiRoutes') 
 app.use('/api', apiRoutes) 
 app.get('/', (req, res) => {
@@ -51,22 +52,21 @@ app.get('/about', (req, res) => {
 app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'contact.html')) 
 })
-
 app.get('/finddoctor', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Find.html')) 
 })
 app.get('/Appointment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) 
 })
-
 app.get('/findhospital', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) 
+})
+app.get('*', (req, res) => {
+  res.status(404).send('Page Not Found');
 })
 app.use(errorHandler) 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
 })
 
-app.get('*', (req, res) => {
-    res.status(404).send('Page Not Found');
-});
+
