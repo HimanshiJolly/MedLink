@@ -13,7 +13,6 @@ app.use(session({
   saveUninitialized: true,
 }))
 const {morganLogger, devLogger} = require('./middlewares/morgan')
-
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
 app.use(logger)
