@@ -1,3 +1,2 @@
-const compression = require('compression');
-
-module.exports = compression();
+const compression = require('compression')
+module.exports = compression()

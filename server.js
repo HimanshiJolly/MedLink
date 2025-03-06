@@ -14,9 +14,7 @@ app.use(session({
   saveUninitialized: true,
 }))
 const compression = require('./middlewares/compression');
-
 app.use(compression);
-
 const {morganLogger, devLogger} = require('./middlewares/morgan')
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
@@ -68,3 +66,7 @@ app.use(errorHandler)
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
 })
+
+app.get('*', (req, res) => {
+    res.status(404).send('Page Not Found');
+});

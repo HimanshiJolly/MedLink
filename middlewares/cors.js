@@ -1,4 +1,4 @@
-const cors = require('cors');
-const allowCors = cors();
+const cors = require('cors')
+const allowCors = cors()
 
-module.exports = allowCors;
+module.exports = allowCors
