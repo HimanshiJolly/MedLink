@@ -4,7 +4,7 @@ const app = express()
 const PORT = 8080
 const logger = require('./middlewares/logger') 
 const errorHandler = require('./middlewares/errorHandler') 
-const helmet = require('./middlewares/helmet')
+
 const session = require('express-session')
 const authMiddleware = require('./middlewares/authMiddleware')
 app.use(session({
