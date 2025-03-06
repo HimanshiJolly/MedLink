@@ -6,21 +6,21 @@
     "password": "mehakgarg"
   },
   {
+    "name": "Himanshi",
+    "username": "himanshi",
+    "email": "himanshi1931.be23@chitkara.edu.in",
+    "password": "12345678"
+  },
+  {
     "name": "Mishti Kharra",
     "username": "msihti87",
     "email": "mishti1987.be23@chitkara.edu.in",
     "password": "mishti1987"
-  },
-  {
-    "name": "Mishti Kharra",
-    "username": "msihti87",
-    "email": "mishti1987.be23@chitkara.edu.in",
-    "password": "12345678"
-  },
+  }
   {
     "name": "Mehakpreet Kaur",
-    "username": "mehakpreet18",
+    "username": "mehakpreet",
     "email": "mehakpreet1985.be23@chitkara.edu.in",
-    "password": "mehakpreet18"
+    "password": "mehak1985"
   }
 ]
