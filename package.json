@@ -10,7 +10,13 @@
   "license": "ISC",
   "description": "MedLink: A Comprehensive Hospital Network Platform  MedLink is an innovative web-based platform designed to connect a network of hospitals, providing users with easy access to healthcare services, appointment scheduling, and medical information. Built with modern web technologies including HTML, CSS, JavaScript, and Node.js.",
   "dependencies": {
+<<<<<<< HEAD
     "express": "^4.21.2",
+=======
+    "compression": "^1.8.0",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+>>>>>>> b43f4040e45629e03e7768b5421b2eb0ff6927a3
     "helmet": "^8.0.0"
   }
 }

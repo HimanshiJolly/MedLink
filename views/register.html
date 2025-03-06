@@ -43,8 +43,18 @@
     </nav>
     <div class="container">
       <div class="formbox register">
-        <form action="/register" id="registerform" method="POST">
+        <form action="/api/register" id="registerform" method="POST">
           <h1>Registration</h1>
+          <div class="inputbox">
+            <input
+              type="text"
+              placeholder="Name"
+              required
+              name="name"
+              id="register-name"
+            />
+            <i class="bx bxs-user"></i>
+          </div>
           <div class="inputbox">
             <input
               type="text"
