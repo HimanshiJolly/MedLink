@@ -6,6 +6,7 @@ const logger = require('./middlewares/logger')
 const errorHandler = require('./middlewares/errorHandler') 
 const allowCors = require('./middlewares/cors');
 const session = require('express-session')
+const helmetMiddleware = require('./middlewares/helmet');
 const authMiddleware = require('./middlewares/authMiddleware')
 app.use(session({
   secret: '567890', 
@@ -23,6 +24,7 @@ app.use(logger)
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(morganLogger)
 app.use(allowCors);
+app.use(helmetMiddleware);
 app.use(devLogger)
 app.use(authMiddleware) 
 const apiRoutes = require('./api/apiRoutes') 
