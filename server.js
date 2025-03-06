@@ -4,11 +4,7 @@ const app = express()
 const PORT = 8080
 const logger = require('./middlewares/logger') 
 const errorHandler = require('./middlewares/errorHandler') 
-<<<<<<< HEAD
-
-<<<<<<< HEAD
 const helmet = require('./middlewares/helmet')
-=======
 const session = require('express-session')
 const authMiddleware = require('./middlewares/authMiddleware')
 app.use(session({
@@ -16,10 +12,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }))
->>>>>>> b43f4040e45629e03e7768b5421b2eb0ff6927a3
-=======
 const {morganLogger, devLogger} = require('./middlewares/morgan')
->>>>>>> 9097882b0d5e37a1ee0eafa7c0b10da53f7c0146
+
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
 app.use(logger)
