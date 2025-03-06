@@ -34,7 +34,7 @@ router.post('/register', (req, res, next) => {
 
     fs.writeFile(path.join(__dirname, '../models/users.json'), JSON.stringify(users, null, 2), (err) => {
       if (err) return next(err)
-      req.session.user = {name: name}
+      req.session.user = {name:name}
       res.redirect('/')
     })
   })
