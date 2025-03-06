@@ -1,5 +1,0 @@
-::1 - - [06/Mar/2025:04:30:03 +0000] "GET /register HTTP/1.1" 304 - "http://localhost:8080/login" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [06/Mar/2025:04:30:03 +0000] "GET /js/login HTTP/1.1" 404 147 "http://localhost:8080/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [06/Mar/2025:04:30:28 +0000] "POST /api/register HTTP/1.1" 302 30 "http://localhost:8080/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [06/Mar/2025:04:30:28 +0000] "GET / HTTP/1.1" 304 - "http://localhost:8080/register" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [06/Mar/2025:04:30:28 +0000] "GET /api/user HTTP/1.1" 200 33 "http://localhost:8080/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"

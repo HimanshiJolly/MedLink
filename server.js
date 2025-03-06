@@ -19,7 +19,7 @@ app.use(logger)
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(morganLogger)
 app.use(devLogger)
-// app.use(authMiddleware) 
+app.use(authMiddleware) 
 const apiRoutes = require('./api/apiRoutes') 
 app.use('/api', apiRoutes) 
 app.get('/', (req, res) => {
