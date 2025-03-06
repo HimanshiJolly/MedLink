@@ -4,11 +4,14 @@ const app = express()
 const PORT = 8080
 const logger = require('./middlewares/logger') 
 const errorHandler = require('./middlewares/errorHandler') 
+const {morganLogger, devLogger} = require('./middlewares/morgan')
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
-app.use(logger) 
+app.use(logger)
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(authMiddleware)
+app.use(morganLogger)
+app.use(devLogger)
+// app.use(authMiddleware) 
 const apiRoutes = require('./api/apiRoutes') 
 app.use('/api', apiRoutes) 
 app.get('/', (req, res) => {
@@ -16,7 +19,6 @@ app.get('/', (req, res) => {
 })
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'login.html')) 
-
 })
 app.get('/services', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Services.html')) 
