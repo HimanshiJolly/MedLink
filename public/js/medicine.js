@@ -1,99 +1,98 @@
 document.addEventListener("DOMContentLoaded", function () {
     function initializeSlider(containerClass) {
-        const sliders = document.querySelectorAll(`.${containerClass} .product-slider`);
-        const prevButtons = document.querySelectorAll(`.${containerClass} .prev-slide`);
-        const nextButtons = document.querySelectorAll(`.${containerClass} .next-slide`);
+        const sliders = document.querySelectorAll(`.${containerClass} .product-slider`)
+        const prevButtons = document.querySelectorAll(`.${containerClass} .prev-slide`)
+        const nextButtons = document.querySelectorAll(`.${containerClass} .next-slide`)
 
-        if (sliders.length === 0 || prevButtons.length === 0 || nextButtons.length === 0) return;
+        if (sliders.length === 0 || prevButtons.length === 0 || nextButtons.length === 0) return
 
         sliders.forEach((slider, index) => {
-            const prev = prevButtons[index];
-            const next = nextButtons[index];
+            const prev = prevButtons[index]
+            const next = nextButtons[index]
 
             next.addEventListener("click", () => {
-                slider.scrollBy({ left: 300, behavior: "smooth" });
-            });
+                slider.scrollBy({ left: 300, behavior: "smooth" })
+            })
 
             prev.addEventListener("click", () => {
-                slider.scrollBy({ left: -300, behavior: "smooth" });
-            });
-        });
+                slider.scrollBy({ left: -300, behavior: "smooth" })
+            })
+        })
     }
 
    
     for (let i = 0; i < 4; i++) {
-        initializeSlider("products");
-        initializeSlider("products1");
+        initializeSlider("products")
+        initializeSlider("products1")
     }
 
    
-    let index = 0;
+    let index = 0
     function moveSlide(step) {
-        const slides = document.querySelector('.slides');
-        if (!slides) return;
+        const slides = document.querySelector('.slides')
+        if (!slides) return
 
-        const totalSlides = slides.children.length;
-        index = (index + step + totalSlides) % totalSlides;
+        const totalSlides = slides.children.length
+        index = (index + step + totalSlides) % totalSlides
 
         
-        slides.style.transform = `translateX(${-index * slides.clientWidth}px)`;
+        slides.style.transform = `translateX(${-index * slides.clientWidth}px)`
     }
 
     
-    window.moveSlide = moveSlide;
-});
-
+    window.moveSlide = moveSlide
+})
 
 document.addEventListener("DOMContentLoaded", () => {
-    updateCartCount();
+    updateCartCount()
     
     document.querySelectorAll(".add-to-cart, .add-to-cart1").forEach(button => {
         button.addEventListener("click", (event) => {
-            let product = event.target.closest(".product-card");
-            let name = product.getAttribute("data-name");
-            let price = parseFloat(product.getAttribute("data-price"));
-            addToCart(name, price);
-            showCartMessage();
-        });
-    });
-});
+            let product = event.target.closest(".product-card")
+            let name = product.getAttribute("data-name")
+            let price = parseFloat(product.getAttribute("data-price"))
+            addToCart(name, price)
+            showCartMessage()
+        })
+    })
+})
 
 
 function addToCart(name, price) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let existingItem = cart.find(item => item.name === name);
+    let cart = JSON.parse(localStorage.getItem("cart")) || []
+    let existingItem = cart.find(item => item.name === name)
 
     if (existingItem) {
-        existingItem.quantity += 1; 
+        existingItem.quantity += 1
     } else {
-        cart.push({ name, price, quantity: 1 }); 
+        cart.push({ name, price, quantity: 1 })
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount(); 
+    localStorage.setItem("cart", JSON.stringify(cart))
+    updateCartCount()
 }
 
 
 function updateCartCount() {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById("cart-count").textContent = totalCount;
+    let cart = JSON.parse(localStorage.getItem("cart")) || []
+    let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0)
+    document.getElementById("cart-count").textContent = totalCount
 }
 
 function showCartMessage() {
-    let message = document.createElement("div");
-    message.textContent = "Added to cart successfully!";
-    message.style.position = "fixed";
-    message.style.bottom = "20px";
-    message.style.right = "20px";
-    message.style.background = "#28a745";
-    message.style.color = "white";
-    message.style.padding = "10px 20px";
-    message.style.borderRadius = "5px";
-    message.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.1)";
-    document.body.appendChild(message);
+    let message = document.createElement("div")
+    message.textContent = "Added to cart successfully!"
+    message.style.position = "fixed"
+    message.style.bottom = "20px"
+    message.style.right = "20px"
+    message.style.background = "#28a745"
+    message.style.color = "white"
+    message.style.padding = "10px 20px"
+    message.style.borderRadius = "5px"
+    message.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.1)"
+    document.body.appendChild(message)
     
     setTimeout(() => {
-        message.remove();
-    }, 2000);
+        message.remove()
+    }, 2000)
 }

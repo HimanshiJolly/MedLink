@@ -84,8 +84,8 @@ a:hover {
   list-style-type: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three equal columns */
-  gap: 30px; /* Adjust gap as needed */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
   margin: 20px 70px 20px 70px;
 }
 
@@ -107,33 +107,33 @@ a:hover {
 }
 .search-section {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two equal columns */
-  gap: 2rem; /* Reduced gap */
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
   padding: 50px 90px 10px 90px;
   margin-top: 40px;
 }
 
 .hospital-text {
   display: flex;
-  flex-direction: column; /* Stack heading and search bar vertically */
-  justify-content: center; /* Center content vertically */
+  flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
-  margin-bottom: 150px; /* Align text to the left */
+  margin-bottom: 150px;
 }
 
 .hospital-text h1 {
   font-size: 70px;
   font-weight: 600;
   color: white;
-  margin-bottom: 20px; /* Add space between heading and search bar */
+  margin-bottom: 20px;
 }
 
 #searchBar {
-  display: flex; /* Use flexbox for search bar elements */
+  display: flex;
   align-items: center;
   background-color: white;
   padding: 10px;
-  margin-top: 15px; /* Align input and button vertically */
+  margin-top: 15px;
 }
 pre {
   color: white;
@@ -157,7 +157,7 @@ pre {
 }
 #searchBar button {
   padding: 8px 16px;
-  background-color: #146c94; /* Example button color */
+  background-color: #146c94;
   color: white;
   border: none;
   border-radius: 4px;
@@ -165,13 +165,12 @@ pre {
   font-size: 15px;
 }
 
-/* Reverse the order of the grid items */
 .search-section > div:first-child {
-  grid-column: 1; /* Text on the left */
+  grid-column: 1;
 }
 
 .search-section > div:last-child {
-  grid-column: 2; /* Image on the right */
+  grid-column: 2;
 }
 .hospital-image {
   margin-left: 20%;
