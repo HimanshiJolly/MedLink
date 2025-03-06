@@ -50,7 +50,7 @@
         <p>
           Select your doctor and preferred time slot to book your appointment
         </p>
-        <form class="appointment-form">
+        <form action="/Appointment" class="appointment-form">
           <h3>Book your Appointment</h3>
           <select required>
             <option value="" disabled selected>Select Specialty</option>
@@ -81,7 +81,7 @@
             <span>Doctors on Call</span>
           </div>
         </div>
-        <button class="join-btn">Join Today!</button>
+        <a href="/register"><button class="join-btn">Join Today!</button></a>
       </div>
     </section>
     <section class="categories">
@@ -146,7 +146,7 @@
             <li>Set a meeting type</li>
             <li>Book your time</li>
           </ul>
-          <button class="appointment-btn">Book an appointment</button>
+          <a href="/Appointment"><button class="appointment-btn">Book an appointment</button></a>
         </div>
       </main>
     </section>
