@@ -6,7 +6,7 @@ const logger = require('./middlewares/logger')
 const errorHandler = require('./middlewares/errorHandler') 
 const allowCors = require('./middlewares/cors')
 const session = require('express-session')
-const helmetMiddleware = require('./middlewares/helmet');
+const helmetMiddleware = require('./middlewares/helmet')
 const authMiddleware = require('./middlewares/authMiddleware')
 app.use(session({
   secret: '567890', 
@@ -58,11 +58,14 @@ app.get('/finddoctor', (req, res) => {
 app.get('/Appointment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) 
 })
+app.get('/reset', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'reset.html'));
+});
 app.get('/findhospital', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) 
 })
 app.get('*', (req, res) => {
-  res.status(404).send('Page Not Found');
+  res.status(404).send('Page Not Found')
 })
 app.use(errorHandler) 
 app.listen(PORT, () => {

@@ -159,4 +159,15 @@
       </div>
     </footer>
   </body>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("error") === "UsernameTaken") {
+      alert("Username already taken.");
+      history.replaceState({}, document.title, "/register");
+    }
+    if (urlParams.get("error") === "Length") {
+      alert("Password should contain more than 8 characters.");
+      history.replaceState({}, document.title, "/register");
+    }
+  </script>
 </html>

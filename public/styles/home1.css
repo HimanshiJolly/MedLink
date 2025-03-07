@@ -65,7 +65,6 @@ a:hover {
   color: #146c94;
 }
 
-/* Main container styling */
 .container1 {
   padding: 100px 20px;
   max-width: 1200px;
@@ -96,11 +95,9 @@ a:hover {
   flex-wrap: wrap;
   gap: 10px;
   border: 2px solid #9b3e99;
-  /* Purple border */
   border-radius: 15px;
-  /* Rounded corners */
+
   padding: 25px;
-  /* Adjust padding inside the form */
 }
 .appointment-form h3 {
   color: #4785b8;
@@ -298,16 +295,16 @@ select {
 }
 
 .badge {
-  margin-top: 5px; /* Adjust badge position */
-  background-color: #fff; /* White background for contrast */
-  padding: 12px 18px; /* Reduced padding */
+  margin-top: 5px;
+  background-color: #fff;
+  padding: 12px 18px;
   display: inline-block;
-  border: 1px solid #5b9ebb; /* Matching modern theme */
-  border-radius: 50px; /* Rounded corners */
-  font-size: 16px; /* Smaller font size for the badge */
-  color: #5b9ebb; /* Match button color */
+  border: 1px solid #5b9ebb;
+  border-radius: 50px;
+  font-size: 16px;
+  color: #5b9ebb;
   position: absolute;
-  bottom: -20px; /* Adjust position to stay close to the image */
+  bottom: -20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -317,25 +314,25 @@ select {
 }
 
 .badge::before {
-  content: "\2764"; /* Heart icon */
+  content: "\2764";
   color: red;
-  font-size: 16px; /* Smaller icon size */
-  margin-right: 8px; /* Adjust spacing */
+  font-size: 16px;
+  margin-right: 8px;
 }
 
 .signup {
-  margin-top: 10px; /* Move sign-up section higher */
-  font-size: 14px; /* Decrease font size */
+  margin-top: 10px;
+  font-size: 14px;
   color: #333;
   text-align: center;
-  background-color: #5b9ebb; /* Modern background color */
-  padding: 10px 18px; /* Reduce padding */
-  border-radius: 30px; /* Rounded corners */
+  background-color: #5b9ebb;
+  padding: 10px 18px;
+  border-radius: 30px;
   border: none;
   color: white;
   font-weight: bold;
   display: inline-block;
-  position: absolute; /* Position it on the top right */
+  position: absolute;
   top: 0;
   right: 0;
   transform: translateY(-50%);
@@ -343,7 +340,7 @@ select {
 }
 
 .signup span {
-  font-size: 12px; /* Smaller span text */
+  font-size: 12px;
   color: #fff;
   display: block;
   margin-top: 5px;
@@ -423,7 +420,7 @@ select {
   font-size: 2.5rem;
   color: #5b9ebb;
   margin-bottom: 20px;
-  margin-top: -20px; /* Raised higher */
+  margin-top: -20px;
 }
 
 .specialties {
