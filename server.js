@@ -15,7 +15,7 @@ app.use(session({
 }))
 const compression = require('./middlewares/compression')
 const {morganLogger, devLogger} = require('./middlewares/morgan')
-app.use(compression);
+app.use(compression());
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
 app.use(logger)
