@@ -11,10 +11,13 @@
   "description": "MedLink: A Comprehensive Hospital Network Platform  MedLink is an innovative web-based platform designed to connect a network of hospitals, providing users with easy access to healthcare services, appointment scheduling, and medical information. Built with modern web technologies including HTML, CSS, JavaScript, and Node.js.",
   "dependencies": {
     "compression": "^1.8.0",
+    "cookie": "^1.0.2",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
     "helmet": "^8.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "parser": "^0.1.4"
   }
 }
