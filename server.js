@@ -59,8 +59,8 @@ app.get('/Appointment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) 
 })
 app.get('/reset', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'reset.html'));
-});
+  res.sendFile(path.join(__dirname, 'views', 'reset.html'))
+})
 app.get('/findhospital', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) 
 })
