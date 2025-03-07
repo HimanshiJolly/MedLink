@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hospitals Near Me (OSM)</title>
+    <title>MedLink</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     />
+    <link rel="icon" href="images/iconhead.jpg">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -31,7 +32,13 @@
         <li><a href="/services" class="active">Services</a></li>
         <li><a href="/about">About Us</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/login">Login/Signup</a></li>
+        <li id="login">
+          <a href="/login">Login/Signup</a>
+        </li>
+        <li id="user-info" style="display: none">
+          <a href="#">Welcome, <span id="name"></span>!</a>
+          <a href="/api/logout" id="logout-btn">Logout</a>
+        </li>
       </ul>
     </nav>
 
@@ -57,4 +64,5 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="js/findHospital.js"></script>
   </body>
+  <script src="js/home1.js"></script>
 </html>

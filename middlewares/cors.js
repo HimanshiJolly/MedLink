@@ -1,12 +1,11 @@
-const cors = require('cors');
+const cors = require('cors')
 
 const corsOptions = {
-  origin: '*',  // Allows all origins (change to specific domains if needed)
+  origin: '*',  
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true // If you're using cookies/sessions
-};
+  credentials: true 
+}
 
-const allowCors = cors(corsOptions);
-
-module.exports = allowCors;
+const allowCors = cors(corsOptions)
+module.exports = allowCors

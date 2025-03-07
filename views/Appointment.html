@@ -28,7 +28,13 @@
         <li><a href="/services">Services</a></li>
         <li><a href="/Aboutus">About us</a></li>
         <li><a href="/contact">Contact us</a></li>
-        <li><a href="/login">Login/Signup</a></li>
+        <li id="login">
+          <a href="/login">Login/Signup</a>
+        </li>
+        <li id="user-info" style="display: none">
+          <a href="#">Welcome, <span id="name"></span>!</a>
+          <a href="/api/logout" id="logout-btn">Logout</a>
+        </li>
       </ul>
     </nav>
     <section class="appointment-container">
@@ -157,4 +163,5 @@
         });
     </script>
   </body>
+  <script src="js/home1.js"></script>
 </html>

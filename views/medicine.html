@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Medicines</title>
+    <title>MedLink</title>
     <link rel="icon" href="images/iconhead.jpg" />
     <link rel="stylesheet" href="styles/medicine.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
@@ -31,7 +31,13 @@
                 <li><a href="/services"class="active">Services</a></li>
                 <li><a href="/about">About us</a></li>
                 <li><a href="/contact">Contact us</a></li>
-                <li><a href="/login">Login/Signup</a></li>
+                <li id="login">
+                    <a href="/login">Login/Signup</a>
+                  </li>
+                  <li id="user-info" style="display: none">
+                    <a href="#">Welcome, <span id="name"></span>!</a>
+                    <a href="/api/logout" id="logout-btn">Logout</a>
+                  </li>
                </ul>
     </nav>
 
@@ -466,4 +472,5 @@
         </div>
       </footer>
 </body>
+<script src="js/home1.js"></script>
 </html>
