@@ -13,15 +13,15 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }))
-const compression = require('compression')
+const compression = require('./middlewares/compression')
 const {morganLogger, devLogger} = require('./middlewares/morgan')
-app.use(compression())
+app.use(compression);
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
 app.use(logger)
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(allowCors)
-app.use(helmetMiddleware)
+app.use(allowCors);
+app.use(helmetMiddleware);
 app.use(morganLogger)
 app.use(devLogger)
 app.use(authMiddleware) 
@@ -59,7 +59,7 @@ app.get('/Appointment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) 
 })
 app.get('/reset', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'reset.html'))
+  res.sendFile(path.join(__dirname, 'views', 'reset.html'));
 });
 app.get('/findhospital', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) 
