@@ -60,11 +60,7 @@ app.get('/Appointment', (req, res) => {
 })
 app.get('/reset', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'reset.html'))
-<<<<<<< HEAD
-});
-=======
 })
->>>>>>> c8bcab362e708b2befcfd5ea7f072da33f2f3719
 app.get('/findhospital', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) 
 })
