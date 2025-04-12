@@ -68,31 +68,30 @@ router.get('/user', (req, res) => {
 })
 router.post('/reset', (req, res, next) => {
   const { email, newPassword, confirmPassword } = req.body
-
   if (newPassword !== confirmPassword) {
-      return res.status(400).redirect('/reset?error=PasswordMismatch')
+    return res.redirect('/reset?error=PasswordMismatch')
   }
   if (newPassword.length < 8) {
-    return res.status(400).redirect('/reset?error==Length')
+    return res.redirect('/reset?error=Length')
   }
+
   fs.readFile(path.join(__dirname, '../models/users.json'), 'utf-8', (err, data) => {
+    if (err) return next(err)
+
+    let users = JSON.parse(data)
+    const userIndex = users.findIndex((user) => user.email === email)
+
+    if (userIndex === -1) {
+      return res.redirect('/reset?error=UserNotFound');
+    }
+    users[userIndex].password = newPassword
+
+    fs.writeFile(path.join(__dirname, '../models/users.json'), JSON.stringify(users, null, 2), (err) => {
       if (err) return next(err)
+      res.redirect('/login')
+    });
+  });
+});
 
-      let users = JSON.parse(data)
-
-      const userIndex = users.findIndex((user) => user.email === email)
-
-      if (userIndex === -1) {
-          return res.status(404).redirect('/reset?error=UserNotFound')
-      }
-
-      users[userIndex].password = newPassword
-
-      fs.writeFile(path.join(__dirname, '../models/users.json'), JSON.stringify(users, null, 2), (err) => {
-          if (err) return next(err)
-          res.redirect('/login')
-      })
-  })
-})
 
 module.exports = router

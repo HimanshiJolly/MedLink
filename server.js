@@ -43,7 +43,7 @@ app.get('/cart', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'medcart.html')) 
 })
 app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'register.html')) 
+  res.render('register',{req})
 })
 app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'Aboutus.html')) 
@@ -58,7 +58,7 @@ app.get('/Appointment', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Appointment.html')) 
 })
 app.get('/reset', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'reset.html'))
+  res.render('reset',{req})
 })
 app.get('/findhospital', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'findhospital.html')) 
