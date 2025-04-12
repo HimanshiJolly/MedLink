@@ -1,13 +1,13 @@
 const express = require(`express`) 
 const path = require('path') 
 const app = express()
+app.set("view engine","ejs")
 const PORT = 8080
 const logger = require('./middlewares/logger') 
 const errorHandler = require('./middlewares/errorHandler') 
 const allowCors = require('./middlewares/cors')
 const session = require('express-session')
 const helmetMiddleware = require('./middlewares/helmet')
-const authMiddleware = require('./middlewares/authMiddleware')
 app.use(session({
   secret: '567890', 
   resave: false,
@@ -24,7 +24,6 @@ app.use(allowCors);
 app.use(helmetMiddleware);
 app.use(morganLogger)
 app.use(devLogger)
-app.use(authMiddleware) 
 
 const apiRoutes = require('./api/apiRoutes') 
 app.use('/api', apiRoutes) 
@@ -32,7 +31,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'home1.html')) 
 })
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'login.html')) 
+  res.render('login', { req }) 
 })
 app.get('/services', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Services.html')) 
