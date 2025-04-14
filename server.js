@@ -15,8 +15,7 @@ app.use(session({
 }))
 const compression = require('compression')
 const { morganLogger, devLogger } = require('./middlewares/morgan')
-const cartRoutes = require('./api/cartRoutes');
-app.use('/api/cart', cartRoutes);
+
 
 app.use(compression());
 app.use(express.json())
@@ -69,12 +68,8 @@ app.get('/pharmacy', (req, res) => {
 });
 
 app.get('/cart', (req, res) => {
-  const medicines = loadMedicines();
-  res.render('medcart', { 
-    medicines,
-    req 
-  });
-});
+  res.render('medcart', { req })
+})
 
 app.get('/register', (req, res) => {
   res.render('register', { req })
