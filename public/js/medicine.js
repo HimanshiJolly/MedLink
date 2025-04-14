@@ -57,13 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-const productCard = e.target.closest('.product-card');
-addToCart(
-  productCard.dataset.name,
-  productCard.dataset.price,
-  productCard.dataset.image,
-  productCard.dataset.oldPrice
-);
 
 function addToCart(name, price, image, oldPrice) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
