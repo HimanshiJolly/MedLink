@@ -54,3 +54,25 @@ button {
 button:hover {
     background-color: #218838;
 }
+
+.decrease-btn,
+.increase-btn,
+.remove-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.decrease-btn:hover,
+.increase-btn:hover,
+.remove-btn:hover {
+    background-color: #d32f2f;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

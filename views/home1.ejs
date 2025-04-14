@@ -1,49 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MedLink</title>
-    <link rel="icon" href="images/iconhead.jpg" />
-    <link href="styles/home1.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
+<head>
+    <%- include('includes/head') %>
+    <link href="styles/home1.css" rel="stylesheet" />  
+</head>
 
-  <body>
-    <nav>
-      <input type="checkbox" id="check" name="" value="" />
-      <label for="check" id="checkbtn">
-        <i class="fa fa-bars"></i>
-      </label>
-      <label class="logo">
-        <img src="images/icon.jpg" height="70px" width="150px" />
-      </label>
-      <ul>
-        <li><a href="/" class="active">Home</a></li>
-        <li><a href="/services">Services</a></li>
-        <li><a href="/about">About us</a></li>
-        <li><a href="/contact">Contact us</a></li>
-        <li id="login">
-          <a href="/login">Login/Signup</a>
-        </li>
-        <li id="user-info" style="display: none">
-          <a href="#">Welcome, <span id="name"></span>!</a>
-          <a href="/api/logout" id="logout-btn">Logout</a>
-        </li>
-      </ul>
-    </nav>
+<body>
+    <%- include('includes/header') %> 
+
     <section class="container1">
       <div class="left-section">
         <h1>Connect with top-rated doctors in just a few clicks</h1>
@@ -84,6 +48,7 @@
         <a href="/register"><button class="join-btn">Join Today!</button></a>
       </div>
     </section>
+    
     <section class="categories">
       <div class="title">How It Works?</div>
       <div class="category-content">
@@ -183,7 +148,6 @@
               class="fas fa-brain"
               style="color: #d7d72e; font-size: 1.5rem"
             ></i>
-
             <span>Neurology</span>
           </div>
         </div>
@@ -196,48 +160,9 @@
         <div class="rating">All Fields of specialization</div>
       </div>
     </div>
-    <footer>
-      <div class="fcontainer">
-        <div class="footer-col">
-          <h2>MedLink</h2>
-          <p class="footer-para">
-            It simplifies healthcare management, allows users to easily book
-            doctor appointments, select convenient time slots, and search for
-            doctors and hospitals in your area.
-          </p>
-        </div>
-        <div class="footer-col">
-          <h3>
-            Menu
-            <div class="underline"><span></span></div>
-          </h3>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact Us</a></li>
-            <li><a href="/services">Services</a></li>
-            <li><a href="/login">Login</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h3>
-            Newsletter
-            <div class="underline"><span></span></div>
-          </h3>
-          <form action="">
-            <i class="fa-solid fa-envelope"></i>
-            <input type="text" placeholder="Enter Email" />
-            <a href=""><i class="fa-solid fa-arrow-right"></i></a>
-          </form>
-          <div class="social-icons">
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-youtube"></i></a>
-            <a href="#"><i class="fa-brands fa-google-plus"></i></a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </body>
-  <script src="js/home1.js"></script>
+
+    <%- include('includes/footer') %> <!-- Include footer -->
+
+    <script src="js/home1.js"></script> <!-- Include your JavaScript file -->
+</body>
 </html>

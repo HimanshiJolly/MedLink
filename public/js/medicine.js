@@ -57,19 +57,32 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
+const productCard = e.target.closest('.product-card');
+addToCart(
+  productCard.dataset.name,
+  productCard.dataset.price,
+  productCard.dataset.image,
+  productCard.dataset.oldPrice
+);
 
-function addToCart(name, price) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || []
-    let existingItem = cart.find(item => item.name === name)
+function addToCart(name, price, image, oldPrice) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let existingItem = cart.find(item => item.name === name);
 
     if (existingItem) {
-        existingItem.quantity += 1
+        existingItem.quantity += 1;
     } else {
-        cart.push({ name, price, quantity: 1 })
+        cart.push({ 
+            name, 
+            price, 
+            image, 
+            oldPrice, 
+            quantity: 1 
+        });
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart))
-    updateCartCount()
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
 }
 
 
