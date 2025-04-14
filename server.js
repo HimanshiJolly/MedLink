@@ -34,7 +34,7 @@ app.get('/login', (req, res) => {
   res.render('login', { req }) 
 })
 app.get('/services', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'Services.html')) 
+ res.render('Services',{req}) 
 })
 app.get('/pharmacy', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'medicine.html')) 
@@ -49,7 +49,7 @@ app.get('/about', (req, res) => {
     res.render('Aboutus',{req}) 
 })
 app.get('/contact', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'contact.html')) 
+  res.render('contact',{req})
 })
 app.get('/finddoctor', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'Find.html')) 

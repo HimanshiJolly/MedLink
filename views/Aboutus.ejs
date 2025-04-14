@@ -31,12 +31,13 @@
     <section class="about-us">
         <div class="container">
           <h1>About Us</h1>
-          <p>
-            Welcome to <strong>MedLink</strong>, your trusted partner in finding
-            the best healthcare professionals and hospitals near you. Our mission
-            is to make healthcare more accessible, efficient, and personalized for everyone.
-          </p>
-  
+          <% if (req.session.user) { %>
+            <p>Welcome back, <%= req.session.user.name %>! Thanks for trusting MedLink.</p>
+        <% } else { %>
+            <p>Welcome to <strong>MedLink</strong>, your trusted partner in finding
+            the best healthcare professionals and hospitals near you...</p>
+        <% } %>
+        
           <h2>Our Vision</h2>
           <p>
             To revolutionize the healthcare experience by connecting patients with
@@ -59,7 +60,7 @@
             <li><strong>Personalized Experience:</strong> Tailored recommendations based on your location and medical needs.</li>
             <li><strong>Trustworthy:</strong> Our platform ensures you connect with reputable healthcare professionals and facilities.</li>
           </ul>
-  
+          
           <p>At <strong>MedLink</strong>, we are committed to your health and well-being. Whether you're seeking a routine check-up or specialized treatment, our goal is to help you get the care you need, when you need it.</p>
           <p>Thank you for choosing <strong>MedLink</strong> — Your Health, Our Priority.</p>
         </div>
