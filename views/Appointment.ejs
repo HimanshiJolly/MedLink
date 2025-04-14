@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedLink</title>
+    <link rel="icon" href="images/iconhead.jpg" />
+    <link href="images/logo.jpg" rel="icon" />
+    <link href="styles/Appointment.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('includes/header') %>
+    <section class="appointment-container">
+        <h2>
+          <i class="fa-solid fa-calendar-check"></i> Book Your Appointment
+          <i class="fa-solid fa-calendar-check"></i>
+        </h2>
+        <form id="appointmentForm" method="POST" action="/book-appointment">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+          </div>
+      
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" required />
+            </div>
+            <div class="form-group">
+              <label for="appointment-date">Select Date:</label>
+              <input type="date" id="appointment-date" name="appointmentDate" required />
+            </div>
+          </div>
+      
+          <div class="form-row">
+            <div class="form-group">
+              <label for="time">Preferred Time</label>
+              <select id="time" name="time" required>
+                <option value="">--Select Time--</option>
+                <option value="10:00 AM" class="unbooked">10:00 AM</option>
+                <option value="11:00 AM" class="booked" disabled>11:00 AM (Booked)</option>
+                <option value="12:00 PM" class="unbooked">12:00 PM</option>
+                <option value="1:00 PM" class="unbooked">1:00 PM</option>
+                <option value="2:00 PM" class="booked" disabled>2:00 PM (Lunchtime)</option>
+                <option value="3:00 PM" class="unbooked">3:00 PM</option>
+                <option value="4:00 PM" class="unbooked">4:00 PM</option>
+                <option value="05:00 PM" class="booked" disabled>05:00 PM (Booked)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="doctor">Select Doctor</label>
+              <select id="doctor" name="doctor" required>
+                <option value="">--Choose a Doctor--</option>
+                <option value="dr-smith">Dr. John Smith (Cardiologist)</option>
+                <option value="dr-jane">Dr. Jane Doe (Dermatologist)</option>
+                <option value="dr-brown">Dr. Mark Brown (General Physician)</option>
+              </select>
+            </div>
+          </div>
+      
+          <div class="form-group full-width">
+            <label for="message">Additional Notes</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+          </div>
+          
+          <button type="submit">Book Appointment</button>
+        </form>
+      </section>
+      <%- include('includes/footer') %>
+      <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let today = new Date().toISOString().split("T")[0];
+        document.getElementById("appointment-date").setAttribute("min", today);
+      });
+      document
+        .getElementById("appointmentForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          alert("Appointment booked successfully!");
+
+          window.location.href = "/";
+        });
+    </script>
+  </body>
+  <script src="js/home1.js"></script>
+</html>
+      
