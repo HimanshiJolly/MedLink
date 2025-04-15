@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedLink</title>
+    <link rel="icon" href="/images/iconhead.jpg">
+    <link rel="stylesheet" href="/styles/shine.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check" name="" value="">
+        <label for="check" id="checkbtn">
+            <i class="fa fa-bars"></i>
+        </label>
+        <label class="logo">
+            <img src="/images/icon.jpg" height="70px" width="150px">
+        </label>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/services" class="active">Services</a></li>
+            <li><a href="/about">About us</a></li>
+            <li><a href="/contact">Contact us</a></li>
+            <li id="login">
+                <a href="/login">Login/Signup</a>
+            </li>
+            <li id="user-info" style="display: none">
+                <a href="#">Welcome, <span id="name"></span>!</a>
+                <a href="/api/logout" id="logout-btn">Logout</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="search-section">
+        <div class="search-container">
+            <h1>Search for a specialist and make an appointment</h1>
+            <p>Select your doctor and preferred time slot to book your appointment</p>
+            <div class="booking-form">
+                <select>
+                    <option value="">Speciality / Doctor / Hospital</option>
+                </select>
+                <input type="text" placeholder="Location">
+                <input type="date">
+                <button>Search</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="results-section">
+        <div class="results-container">
+            <div class="filter-section">
+                <h2>Refine your search</h2>
+                <input type="text" placeholder="Search">
+                <h3>Speciality</h3>
+                <ul>
+                    <% const specialities = [
+                        { id: "general", name: "General practitioner", icon: "https://cdn-icons-png.flaticon.com/128/46/46196.png" },
+                        { id: "dentistry", name: "Dentistry", icon: "https://cdn-icons-png.flaticon.com/128/3467/3467825.png", checked: true },
+                        { id: "neurology", name: "Neurology", icon: "https://cdn-icons-png.flaticon.com/128/9133/9133647.png" },
+                        { id: "xray", name: "X-Ray", icon: "https://cdn-icons-png.flaticon.com/128/4006/4006101.png" },
+                        { id: "dermatology", name: "Dermatology", icon: "https://cdn-icons-png.flaticon.com/128/7305/7305176.png" },
+                        { id: "urology", name: "Urology", icon: "https://cdn-icons-png.flaticon.com/128/2184/2184274.png" },
+                        { id: "psychiatry", name: "Psychiatry", icon: "https://cdn-icons-png.flaticon.com/128/4637/4637907.png" }
+                    ];
+                    specialities.forEach(s => { %>
+                        <li>
+                            <input type="checkbox" id="<%= s.id %>" <%= s.checked ? 'checked' : '' %>>
+                            <label for="<%= s.id %>">
+                                <img src="<%= s.icon %>" alt="<%= s.name %>" class="speciality-logo"> <%= s.name %>
+                            </label>
+                        </li>
+                    <% }); %>
+                </ul>
+                <h3>Qualification</h3>
+                <ul>
+                    <% ["MBBS", "MBBch", "MD", "DO"].forEach(q => { %>
+                        <li><input type="checkbox" id="<%= q.toLowerCase() %>"> <label for="<%= q.toLowerCase() %>"><%= q %></label></li>
+                    <% }) %>
+                </ul>
+                <h3>Country</h3>
+                <ul>
+                    <li><input type="checkbox" id="denmark" checked> <label for="denmark">Denmark (DK)</label></li>
+                </ul>
+                <h3>District</h3>
+                <ul>
+                    <li><input type="checkbox" id="copenhagen" checked> <label for="copenhagen">Copenhagen (CPH)</label></li>
+                </ul>
+                <button class="update-search">Update search</button>
+            </div>
+
+            <div class="doctor-list">
+                <div class="list-header">
+                    <p>Showing 175 search results</p>
+                    <select>
+                        <option value="highest">Sort by: Highest rated</option>
+                    </select>
+                </div>
+                <div class="doctor-cards">
+                    <% const doctors = [
+                        { img: "/images/one.jpg", name: "Dr. James Wilson", field: "General practitioner" },
+                        { img: "/images/two.jpg", name: "Dr. Shaurya Khanna", field: "Neurology" },
+                        { img: "/images/three.jpg", name: "Dr. Ethan Miller", field: "Dentistry" },
+                        { img: "/images/four.jpg", name: "Gill Hames", field: "Psychiatry" },
+                        { img: "/images/five.jpg", name: "Dr. Kendra Wilson", field: "Pathology" },
+                        { img: "/images/six.jpg", name: "Dr. Silas Reed", field: "Prosthodontics" },
+                        { img: "/images/seven.jpg", name: "Dr. Ava Thomas", field: "Gynecologist" },
+                        { img: "/images/eight.jpg", name: "Richard Kicker", field: "Urology" },
+                        { img: "/images/nine.jpg", name: "Dr. Ella Walker", field: "Dermatology" },
+                    ];
+                    doctors.forEach(d => { %>
+                        <div class="doctor-card">
+                            <img src="<%= d.img %>" alt="<%= d.name %>">
+                            <h3><%= d.name %></h3>
+                            <p><%= d.field %></p>
+                        </div>
+                    <% }) %>
+                </div>
+
+                <div class="pagination">
+                    <a href="#">&lt;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">...</a>
+                    <a href="#">20</a>
+                    <a href="#">&gt;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="fcontainer">
+            <div class="footer-col">
+                <h2>MedLink</h2>
+                <p class="footer-para">
+                    Simplifying healthcare management with easy doctor appointments,
+                    time slot selection, and nearby doctor and hospital searches.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="#" onclick="alert('Coming Soon..')">Services</a></li>
+                    <li><a href="/login">Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <form action="#">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" placeholder="Enter Email" required />
+                    <button type="submit">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-google-plus"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/js/home1.js"></script>
+</body>
+</html>

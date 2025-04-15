@@ -81,7 +81,7 @@ app.get('/contact', (req, res) => {
   res.render('contact',{req})
 })
 app.get('/finddoctor', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'Find.html'))
+  res.render('finddoctor', { req });
 })
 app.get('/Appointment', (req, res) => {
   res.render('Appointment', { req })
