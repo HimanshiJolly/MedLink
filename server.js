@@ -9,9 +9,9 @@ const allowCors = require('./middlewares/cors')
 const session = require('express-session')
 const helmetMiddleware = require('./middlewares/helmet')
 app.use(session({
-  secret: '567890',
+  secret: '945138',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
 }))
 const compression = require('compression')
 const { morganLogger, devLogger } = require('./middlewares/morgan')
@@ -94,7 +94,7 @@ app.get('/reset', (req, res) => {
   res.render('reset', { req })
 })
 app.get('/findhospital', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'findhospital.html'))
+  res.render('findHospital', { req });
 })
 app.get('*', (req, res) => {
   res.status(404).send('Page Not Found')
