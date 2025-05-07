@@ -51,10 +51,33 @@ document.addEventListener("DOMContentLoaded", () => {
             let product = event.target.closest(".product-card")
             let name = product.getAttribute("data-name")
             let price = parseFloat(product.getAttribute("data-price"))
-            addToCart(name, price)
+            let image = product.getAttribute("data-image")
+            let oldPrice = parseFloat(product.getAttribute("data-oldprice"))
+            addToCart(name, price, image, oldPrice)
             showCartMessage()
         })
     })
+
+    // Scroll to section on category button click
+    const categoryMap = {
+        "ayush-btn": "ayush-section",
+        "fitness-btn": "fitness-section",
+        "devices-btn": "devices-section",
+        "personal-care-btn": "personal-care-section"
+    };
+
+    Object.keys(categoryMap).forEach(buttonId => {
+        const button = document.getElementById(buttonId);
+        const sectionId = categoryMap[buttonId];
+        if (button && sectionId) {
+            button.addEventListener("click", () => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            });
+        }
+    });
 })
 
 

@@ -437,6 +437,183 @@ a:hover {
   max-width: 1200px;
 }
 
+/* Style anchor tags inside hero items to remove default blue and underline */
+.hero .hero-item a {
+  color: #605f5f;
+  text-decoration: none;
+}
+
+.hero .hero-item a:hover,
+.hero .hero-item a:focus {
+  color: #007acc;
+  text-decoration: underline;
+}
+
+/* Remove blue underline and color on focus/hover for Brands in Focus links */
+.categories-container a,
+.categories-container a:focus,
+.categories-container a:hover {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Order by Prescription Styles */
+.order-prescription-section {
+  max-width: 600px;
+  margin: 50px auto;
+  background: #f9f9f9;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.order-prescription-section h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+  color: #007acc;
+  font-weight: 700;
+}
+
+.order-prescription-section p {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+#prescription-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#prescription-form label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #444;
+}
+
+#prescription-form input[type="file"] {
+  padding: 10px;
+  border: 2px dashed #007acc;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+#prescription-form input[type="file"]:hover {
+  border-color: #005f99;
+}
+
+#prescription-form button {
+  background-color: #007acc;
+  color: white;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#prescription-form button:hover {
+  background-color: #005f99;
+}
+
+/* Search Dialog Styles */
+.search-dialog {
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.search-dialog-content {
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.search-dialog-close {
+  color: #666;
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 28px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.search-dialog-close:hover,
+.search-dialog-close:focus {
+  color: #d9534f;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#search-results-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto 0 auto;
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.1);
+  background: #fff;
+  width: 80%;
+  max-width: 400px;
+}
+
+#search-results-list li {
+  padding: 14px 18px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  font-size: 15px;
+  color: #222;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#search-results-list li:last-child {
+  border-bottom: none;
+}
+
+#search-results-list li:hover {
+  background-color: #007acc;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Categories */
 .popular-categories h2 {
   font-size: 26px;
   margin-bottom: 40px;

@@ -71,6 +71,10 @@ app.get('/cart', (req, res) => {
   res.render('medcart', { req })
 })
 
+app.get('/order-by-prescription', (req, res) => {
+  res.render('orderByPrescription', { req })
+})
+
 app.get('/register', (req, res) => {
   res.render('register', { req })
 })
