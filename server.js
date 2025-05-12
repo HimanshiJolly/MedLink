@@ -53,6 +53,9 @@ app.get('/login', (req, res) => {
 app.get('/services', (req, res) => {
  res.render('Services',{req}) 
 })
+app.get('/emergency', (req, res) => {
+  res.render('Emergency', { req });
+})
 app.get('/pharmacy', async (req, res) => {
   try {
     const medicines = await loadMedicines();
