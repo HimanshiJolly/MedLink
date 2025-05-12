@@ -3,35 +3,29 @@ const path = require('path')
 const fs = require('fs')
 const router = express.Router()
 
-router.post('/login', (req, res, next) => {
-  const { username, password } = req.body
+const user=require('../models/user')
 
-  fs.readFile(path.join(__dirname, '../models/users.json'), 'utf-8', (err, data) => {
-    if (err) return next(err)
+router.post('/login', async(req, res, next) => {
+  let { username, password } = req.body
 
-    const users = JSON.parse(data)
-    const user = users.find(u => u.username === username && u.password === password)
-    if (user) {
-      req.session.user = { name: user.name }
+  try {
+    let foundUser = await user.findOne({ username, password }).exec()
+    if (foundUser) {
+      req.session.user = { name: foundUser.name }
       return res.redirect('/')
     } else {
       return res.redirect('/register')
     }
-  });
+  } catch (err) {
+    return next(err)
+  }
 });
 
-router.post('/register', (req, res, next) => {
-  const { name, username, email, password } = req.body
+router.post('/register', async(req, res, next) => {
+  let { name, username, email, password } = req.body
 
-  fs.readFile(path.join(__dirname, '../models/users.json'), 'utf-8', (err, data) => {
-    if (err) return next(err)
-
-    let users = [];
-    if (data) {
-      users = JSON.parse(data)
-    }
-    const usernameExists = users.some(u => u.username === username)
-
+  try {
+    const usernameExists = await user.findOne({ username }).exec()
     if (usernameExists) {
       return res.status(404).redirect('/register?error=UsernameTaken')
     }
@@ -39,15 +33,13 @@ router.post('/register', (req, res, next) => {
       return res.status(400).redirect('/register?error=Length')
     }
 
-    const newUser = { name, username, email, password }
-    users.push(newUser)
+    await user.insertOne({ name, username, email, password });
 
-    fs.writeFile(path.join(__dirname, '../models/users.json'), JSON.stringify(users, null, 2), (err) => {
-      if (err) return next(err)
-      req.session.user = { name: name }
-      res.redirect('/')
-    })
-  })
+    req.session.user = { name: name }
+    res.redirect('/')
+  } catch (err) {
+    return next(err)
+  }
 })
 
 router.get('/logout', (req, res, next) => {
@@ -66,8 +58,8 @@ router.get('/user', (req, res) => {
     res.json({ user: null })
   }
 })
-router.post('/reset', (req, res, next) => {
-  const { email, newPassword, confirmPassword } = req.body
+router.post('/reset', async(req, res, next) => {
+  let { email, newPassword, confirmPassword } = req.body
   if (newPassword !== confirmPassword) {
     return res.redirect('/reset?error=PasswordMismatch')
   }
@@ -75,22 +67,17 @@ router.post('/reset', (req, res, next) => {
     return res.redirect('/reset?error=Length')
   }
 
-  fs.readFile(path.join(__dirname, '../models/users.json'), 'utf-8', (err, data) => {
-    if (err) return next(err)
-
-    let users = JSON.parse(data)
-    const userIndex = users.findIndex((user) => user.email === email)
-
-    if (userIndex === -1) {
-      return res.redirect('/reset?error=UserNotFound');
+  try {
+    let foundUser= await user.findOne({ email }).exec()
+    if (!foundUser) {
+      return res.redirect('/reset?error=UserNotFound')
     }
-    users[userIndex].password = newPassword
-
-    fs.writeFile(path.join(__dirname, '../models/users.json'), JSON.stringify(users, null, 2), (err) => {
-      if (err) return next(err)
-      res.redirect('/login')
-    });
-  });
+    foundUser.password = newPassword
+    await foundUser.save()
+    res.redirect('/login')
+  } catch (err) {
+    return next(err)
+  }
 });
 
 
