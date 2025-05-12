@@ -11,23 +11,31 @@
     <section class="container1">
       <div class="left-section">
         <h1>Connect with top-rated doctors in just a few clicks</h1>
-        <p>
-          Select your doctor and preferred time slot to book your appointment
-        </p>
-        <form action="/Appointment" class="appointment-form">
-          <h3>Book your Appointment</h3>
-          <select required>
-            <option value="" disabled selected>Select Specialty</option>
-            <option value="dentist">Dentist</option>
-            <option value="neurologist">Neurologist</option>
-            <option value="cardiologist">Cardiologist</option>
-            <option value="pediatrician">Pediatrician</option>
-          </select>
-          <input type="date" required />
-          <input type="text" placeholder="Location" required />
-
-          <button type="submit">Search</button>
-        </form>
+<div class="appointment-form">
+          <p>
+            To find your preferred doctor, please click the button below to visit our Find Doctor page where you can browse specialists and book appointments.
+          </p>
+          <style>
+            .custom-button {
+              background-color: green !important;
+              color: white !important;
+              border: 2px solid green !important;
+              padding: 10px 20px !important;
+              border-radius: 5px !important;
+              cursor: pointer !important;
+              transition: background-color 0.3s ease, border-color 0.3s ease !important;
+            }
+            .custom-button:hover {
+              background-color: #007bff !important;
+              border-color: #007bff !important;
+            }
+          </style>
+          <button onclick="window.location.href='/finddoctor'" class="custom-button">Find Doctor</button>
+          <p>
+            For convenient and quick access to your medicines, please use our Medicine Cart to easily add and manage your medicine orders. We are currently offering discounts on selected medicines.
+          </p>
+          <button onclick="window.location.href='/pharmacy'" class="custom-button">Buy Medicine</button>
+        </div>
       </div>
       <div class="right-section">
         <img
