@@ -34,95 +34,211 @@
         <i class="fa-solid fa-calendar-check"></i>
       </h2>
       <% if (req.session && req.session.user) { %>
-        <form id="appointmentForm" method="POST" action="/book-appointment">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" required value="<%= req.session.user ? req.session.user.name : '' %>" />
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" required />
-            </div>
+      <form id="appointmentForm" method="POST" action="/book-appointment">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              value="<%= req.session.user ? req.session.user.name : '' %>"
+            />
           </div>
-      
-          <div class="form-row">
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" required />
-            </div>
-            <div class="form-group">
-              <label for="appointment-date">Select Date:</label>
-              <input type="date" id="appointment-date" name="appointmentDate" required />
-            </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
           </div>
-      
-          <div class="form-row">
-            <div class="form-group">
-              <label for="speciality">Speciality</label>
-              <select id="speciality" name="speciality" required>
-                <option value="">--Select Speciality--</option>
-                <option value="General practitioner">General practitioner</option>
-                <option value="Dentistry">Dentistry</option>
-                <option value="Neurology">Neurology</option>
-                <option value="X-Ray">X-Ray</option>
-                <option value="Dermatology">Dermatology</option>
-                <option value="Urology">Urology</option>
-                <option value="Psychiatry">Psychiatry</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="doctor">Select Doctor</label>
-              <select id="doctor" name="doctor" required>
-                <option value="">--Choose a Doctor--</option>
-                <option value="dr-smith">Dr. John Smith (Cardiologist)</option>
-                <option value="dr-jane">Dr. Jane Doe (Dermatologist)</option>
-                <option value="dr-brown">Dr. Mark Brown (General Physician)</option>
-              </select>
-            </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required />
           </div>
-      
-          <div class="form-group full-width">
-            <label for="message">Additional Notes</label>
-            <textarea id="message" name="message" rows="4"></textarea>
+          <div class="form-group">
+            <label for="appointment-date">Select Date:</label>
+            <input
+              type="date"
+              id="appointment-date"
+              name="appointmentDate"
+              required
+            />
           </div>
-          
-          <button type="submit">Book Appointment</button>
-        </form>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="speciality">Speciality</label>
+            <select id="speciality" name="speciality" required>
+              <option value="">--Select Speciality--</option>
+              <option value="General practitioner">General practitioner</option>
+              <option value="Dentistry">Dentistry</option>
+              <option value="Neurology">Neurology</option>
+              <option value="X-Ray">X-Ray</option>
+              <option value="Dermatology">Dermatology</option>
+              <option value="Urology">Urology</option>
+              <option value="Psychiatry">Psychiatry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="doctor">Select Doctor</label>
+            <select id="doctor" name="doctor" required>
+              <option value="">--Choose a Doctor--</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="timeslot">Available Timeslots</label>
+          <select id="timeslot" name="timeslot" required>
+            <option value="">--Select a Timeslot--</option>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label for="message">Additional Notes</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+
+        <button type="submit">Book Appointment</button>
+      </form>
       <% } else { %>
-        <p>Please <a href="/login">login</a> or <a href="/register">register</a> to book an appointment.</p>
+      <p>
+        Please <a href="/login">login</a> or <a href="/register">register</a> to
+        book an appointment.
+      </p>
       <% } %>
     </section>
-      
-      <script>
+
+    <script>
       document.addEventListener("DOMContentLoaded", function () {
         let today = new Date().toISOString().split("T")[0];
         document.getElementById("appointment-date").setAttribute("min", today);
+
+        const specialitySelect = document.getElementById("speciality");
+        const doctorSelect = document.getElementById("doctor");
+        const timeslotSelect = document.getElementById("timeslot");
+        let doctorsData = [];
+
+        specialitySelect.addEventListener("change", async function () {
+          const specialty = this.value;
+          const appointmentDate =
+            document.getElementById("appointment-date").value;
+          doctorSelect.innerHTML =
+            '<option value="">--Choose a Doctor--</option>';
+          timeslotSelect.innerHTML =
+            '<option value="">--Select a Timeslot--</option>';
+
+          if (!specialty || !appointmentDate) return;
+
+          try {
+            const response = await fetch(
+              `/api/doctorsBySpecialty?specialty=${encodeURIComponent(
+                specialty
+              )}&date=${encodeURIComponent(appointmentDate)}`
+            );
+            doctorsData = await response.json();
+
+            doctorsData.forEach((doctor) => {
+              const option = document.createElement("option");
+              option.value = doctor._id;
+              option.textContent = `${doctor.name} (${doctor.field})`;
+              doctorSelect.appendChild(option);
+            });
+          } catch (error) {
+            console.error("Error fetching doctors:", error);
+          }
+        });
+
+        doctorSelect.addEventListener("change", function () {
+          const doctorId = this.value;
+          timeslotSelect.innerHTML =
+            '<option value="">--Select a Timeslot--</option>';
+
+          if (!doctorId) return;
+
+          const doctor = doctorsData.find((d) => d._id === doctorId);
+          if (!doctor || !doctor.availableTimeslots) return;
+
+          doctor.availableTimeslots.forEach((slot) => {
+            const option = document.createElement("option");
+            const date = new Date(slot);
+            option.value = date.toISOString();
+            option.textContent = date.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+            timeslotSelect.appendChild(option);
+          });
+        });
       });
       document
         .getElementById("appointmentForm")
         .addEventListener("submit", function (event) {
-          event.preventDefault();
-
-          alert("Appointment booked successfully!");
-
-          window.location.href = "/";
+          // event.preventDefault();
+          // alert("Appointment booked successfully!");
+          // window.location.href = "/";
         });
     </script>
-    
 
-<script>
-  window.__ow = window.__ow || {};
-  window.__ow.organizationId = "43dd45ca-5cea-4958-ab55-6ef82768cd65";
-  window.__ow.template_id = "9e7fd889-26d7-4dcf-bdfb-e8bec39c4620";
-  window.__ow.integration_name = "manual_settings";
-  window.__ow.product_name = "chatbot";   
-  ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[OpenWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.openwidget.com/openwidget.js",t.head.appendChild(n)}};!n.__ow.asyncInit&&e.init(),n.OpenWidget=n.OpenWidget||e}(window,document,[].slice))
-</script>
-<noscript>You need to <a href="https://www.chatbot.com/help/chat-widget/enable-javascript-in-your-browser/" rel="noopener nofollow">enable JavaScript</a> in order to use the AI chatbot tool powered by <a href="https://www.chatbot.com/" rel="noopener nofollow" target="_blank">ChatBot</a></noscript>
+    <script>
+      window.__ow = window.__ow || {};
+      window.__ow.organizationId = "43dd45ca-5cea-4958-ab55-6ef82768cd65";
+      window.__ow.template_id = "9e7fd889-26d7-4dcf-bdfb-e8bec39c4620";
+      window.__ow.integration_name = "manual_settings";
+      window.__ow.product_name = "chatbot";
+      (function (n, t, c) {
+        function i(n) {
+          return e._h ? e._h.apply(null, n) : e._q.push(n);
+        }
+        var e = {
+          _q: [],
+          _h: null,
+          _v: "2.0",
+          on: function () {
+            i(["on", c.call(arguments)]);
+          },
+          once: function () {
+            i(["once", c.call(arguments)]);
+          },
+          off: function () {
+            i(["off", c.call(arguments)]);
+          },
+          get: function () {
+            if (!e._h)
+              throw new Error(
+                "[OpenWidget] You can't use getters before load."
+              );
+            return i(["get", c.call(arguments)]);
+          },
+          call: function () {
+            i(["call", c.call(arguments)]);
+          },
+          init: function () {
+            var n = t.createElement("script");
+            (n.async = !0),
+              (n.type = "text/javascript"),
+              (n.src = "https://cdn.openwidget.com/openwidget.js"),
+              t.head.appendChild(n);
+          },
+        };
+        !n.__ow.asyncInit && e.init(), (n.OpenWidget = n.OpenWidget || e);
+      })(window, document, [].slice);
+    </script>
+    <noscript
+      >You need to
+      <a
+        href="https://www.chatbot.com/help/chat-widget/enable-javascript-in-your-browser/"
+        rel="noopener nofollow"
+        >enable JavaScript</a
+      >
+      in order to use the AI chatbot tool powered by
+      <a href="https://www.chatbot.com/" rel="noopener nofollow" target="_blank"
+        >ChatBot</a
+      ></noscript
+    >
 
-<%- include('includes/footer') %>  
+    <%- include('includes/footer') %>
   </body>
   <script src="js/home1.js"></script>
 </html>
-      

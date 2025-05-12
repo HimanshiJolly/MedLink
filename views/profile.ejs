@@ -16,8 +16,8 @@
       <div class="profile-content">
         <div class="card">
           <h3>My Appointments</h3>
-          <ul>
-            <li>Appointment data loading not implemented yet.</li>
+          <ul id="appointments-list">
+            <li>Loading appointments...</li>
           </ul>
         </div>
         <div class="card">
@@ -48,6 +48,9 @@
               data.user.username || "N/A";
             document.getElementById("info-email").textContent =
               data.user.email || "N/A";
+
+            // Fetch appointments for the user
+            fetchAppointments();
           } else {
             document.getElementById("user-name").textContent = "Guest";
             document.getElementById("info-name").textContent = "N/A";
@@ -63,6 +66,36 @@
           document.getElementById("info-email").textContent = "Error";
         }
       }
+
+      async function fetchAppointments() {
+        try {
+          const response = await fetch("/api/appointments");
+          if (!response.ok) throw new Error("Network response was not ok");
+          const appointments = await response.json();
+
+          const appointmentsList = document.getElementById("appointments-list");
+          appointmentsList.innerHTML = "";
+
+          if (appointments.length === 0) {
+            appointmentsList.innerHTML = "<li>No appointments found.</li>";
+            return;
+          }
+
+          appointments.forEach((appointment) => {
+            const li = document.createElement("li");
+            const date = new Date(appointment.timeslot);
+            li.textContent = `${appointment.doctorName} (${
+              appointment.specialty
+            }) - ${date.toLocaleString()}`;
+            appointmentsList.appendChild(li);
+          });
+        } catch (error) {
+          console.error("Failed to fetch appointments:", error);
+          const appointmentsList = document.getElementById("appointments-list");
+          appointmentsList.innerHTML = "<li>Error loading appointments.</li>";
+        }
+      }
+
       fetchUserInfo();
     </script>
     <%- include('includes/footer') %>
