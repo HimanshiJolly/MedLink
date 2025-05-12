@@ -49,14 +49,14 @@
 
     <section class="results-section">
         <div class="results-container">
-            <div class="filter-section">
+            <form class="filter-section" method="GET" action="/finddoctor">
                 <h2>Refine your search</h2>
-                <input type="text" placeholder="Search">
+                <input type="text" name="search" placeholder="Search" value="<%= typeof req.query.search !== 'undefined' ? req.query.search : '' %>">
                 <h3>Speciality</h3>
                 <ul>
                     <% const specialities = [
                         { id: "general", name: "General practitioner", icon: "https://cdn-icons-png.flaticon.com/128/46/46196.png" },
-                        { id: "dentistry", name: "Dentistry", icon: "https://cdn-icons-png.flaticon.com/128/3467/3467825.png", checked: true },
+                        { id: "dentistry", name: "Dentistry", icon: "https://cdn-icons-png.flaticon.com/128/3467/3467825.png" },
                         { id: "neurology", name: "Neurology", icon: "https://cdn-icons-png.flaticon.com/128/9133/9133647.png" },
                         { id: "xray", name: "X-Ray", icon: "https://cdn-icons-png.flaticon.com/128/4006/4006101.png" },
                         { id: "dermatology", name: "Dermatology", icon: "https://cdn-icons-png.flaticon.com/128/7305/7305176.png" },
@@ -65,7 +65,7 @@
                     ];
                     specialities.forEach(s => { %>
                         <li>
-                            <input type="checkbox" id="<%= s.id %>" <%= s.checked ? 'checked' : '' %>>
+                            <input type="checkbox" id="<%= s.id %>" name="speciality" value="<%= s.name %>" <%= (Array.isArray(req.query.speciality) ? req.query.speciality.includes(s.name) : req.query.speciality === s.name) ? 'checked' : '' %>>
                             <label for="<%= s.id %>">
                                 <img src="<%= s.icon %>" alt="<%= s.name %>" class="speciality-logo"> <%= s.name %>
                             </label>
@@ -75,19 +75,28 @@
                 <h3>Qualification</h3>
                 <ul>
                     <% ["MBBS", "MBBch", "MD", "DO"].forEach(q => { %>
-                        <li><input type="checkbox" id="<%= q.toLowerCase() %>"> <label for="<%= q.toLowerCase() %>"><%= q %></label></li>
+                        <li>
+                            <input type="checkbox" id="<%= q.toLowerCase() %>" name="qualification" value="<%= q %>" <%= (Array.isArray(req.query.qualification) ? req.query.qualification.includes(q) : req.query.qualification === q) ? 'checked' : '' %>>
+                            <label for="<%= q.toLowerCase() %>"><%= q %></label>
+                        </li>
                     <% }) %>
                 </ul>
                 <h3>Country</h3>
                 <ul>
-                    <li><input type="checkbox" id="denmark" checked> <label for="denmark">Denmark (DK)</label></li>
+                    <li>
+                        <input type="checkbox" id="denmark" name="country" value="Denmark" <%= req.query.country === 'Denmark' ? 'checked' : '' %>>
+                        <label for="denmark">Denmark (DK)</label>
+                    </li>
                 </ul>
                 <h3>District</h3>
                 <ul>
-                    <li><input type="checkbox" id="copenhagen" checked> <label for="copenhagen">Copenhagen (CPH)</label></li>
+                    <li>
+                        <input type="checkbox" id="copenhagen" name="district" value="Copenhagen" <%= req.query.district === 'Copenhagen' ? 'checked' : '' %>>
+                        <label for="copenhagen">Copenhagen (CPH)</label>
+                    </li>
                 </ul>
-                <button class="update-search">Update search</button>
-            </div>
+                <button type="submit" class="update-search">Update search</button>
+            </form>
 
             <div class="doctor-list">
                 <div class="list-header">
@@ -124,43 +133,7 @@
         </div>
     </section>
 
-    <footer>
-        <div class="fcontainer">
-            <div class="footer-col">
-                <h2>MedLink</h2>
-                <p class="footer-para">
-                    Simplifying healthcare management with easy doctor appointments,
-                    time slot selection, and nearby doctor and hospital searches.
-                </p>
-            </div>
-            <div class="footer-col">
-                <h3>Menu</h3>
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
-                    <li><a href="#" onclick="alert('Coming Soon..')">Services</a></li>
-                    <li><a href="/login">Login</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Newsletter</h3>
-                <form action="#">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" placeholder="Enter Email" required />
-                    <button type="submit">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </form>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#"><i class="fa-brands fa-google-plus"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Removed inline footer HTML to avoid duplicate footers -->
     <script src="/js/home1.js"></script>
     <script>
         // Toggle doctor details on card click
@@ -174,65 +147,6 @@
                 }
             });
         });
-
-        // Filtering functionality
-        let doctors = [];
-        const doctorCardsContainer = document.querySelector('.doctor-cards');
-        const specialityCheckboxes = document.querySelectorAll('.filter-section input[type="checkbox"]');
-        const searchInput = document.querySelector('.filter-section input[type="text"]');
-        const updateSearchBtn = document.querySelector('.filter-section .update-search');
-
-        async function fetchDoctors() {
-            try {
-                const response = await fetch('/api/doctors');
-                doctors = await response.json();
-                filterDoctors();
-            } catch (error) {
-                console.error('Error fetching doctors:', error);
-            }
-        }
-
-        function filterDoctors() {
-            const selectedSpecialities = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.id);
-            const searchText = searchInput.value.toLowerCase();
-
-            const filteredDoctors = doctors.filter(d => {
-                const specialityMatch = selectedSpecialities.length === 0 || selectedSpecialities.includes(d.field.toLowerCase().replace(/\s/g, ''));
-                const searchMatch = d.name.toLowerCase().includes(searchText) || d.field.toLowerCase().includes(searchText);
-                return specialityMatch && searchMatch;
-            });
-
-            doctorCardsContainer.innerHTML = '';
-            filteredDoctors.forEach(d => {
-                const card = document.createElement('div');
-                card.className = 'doctor-card';
-                card.tabIndex = 0;
-                card.innerHTML = `
-                    <img src="${d.img}" alt="${d.name}">
-                    <h3>${d.name}</h3>
-                    <p>${d.field}</p>
-                    <div class="doctor-details" style="display:none; text-align:left; margin-top:10px;">
-                        <p><strong>Experience:</strong> ${d.experience}</p>
-                        <p><strong>Qualification:</strong> ${d.qualification}</p>
-                        <p><strong>Rating:</strong> ${d.rating} / 5</p>
-                    </div>
-                `;
-                card.addEventListener('click', () => {
-                    const details = card.querySelector('.doctor-details');
-                    if (details.style.display === 'none' || details.style.display === '') {
-                        details.style.display = 'block';
-                    } else {
-                        details.style.display = 'none';
-                    }
-                });
-                doctorCardsContainer.appendChild(card);
-            });
-        }
-
-        updateSearchBtn.addEventListener('click', filterDoctors);
-
-        // Initial fetch of doctors data
-        fetchDoctors();
     </script>
   <script>
         window.__ow = window.__ow || {};

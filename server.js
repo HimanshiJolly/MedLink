@@ -53,9 +53,6 @@ app.get('/login', (req, res) => {
 app.get('/services', (req, res) => {
  res.render('Services',{req}) 
 })
-app.get('/emergency', (req, res) => {
-  res.render('Emergency', { req });
-})
 app.get('/pharmacy', async (req, res) => {
   try {
     const medicines = await loadMedicines();
@@ -93,13 +90,21 @@ app.get('/payment', (req, res) => {
   res.render('payment', { req });
 });
 
+app.post('/payment/complete', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: 'User not logged in' });
+  }
+  // Payment processing logic can be added here
+  // For now, just respond with success
+  res.status(200).send('Payment completed');
+});
+
 app.get('/register', (req, res) => {
   res.render('register', { req })
 })
 app.get('/about', (req, res) => {
   res.render('Aboutus', { req })
 })
-
 app.get('/contact', (req, res) => {
   res.render('contact',{req})
 })
@@ -107,7 +112,34 @@ const Doctor = require('./models/doctor');
 
 app.get('/finddoctor', async (req, res) => {
   try {
-    const doctors = await Doctor.find();
+    const { search, speciality, qualification } = req.query;
+
+    // Build query object
+    const query = {};
+
+    if (search) {
+      query.name = { $regex: search, $options: 'i' };
+    }
+
+    if (speciality) {
+      if (Array.isArray(speciality)) {
+        query.field = { $in: speciality };
+      } else {
+        query.field = speciality;
+      }
+    }
+
+    if (qualification) {
+      if (Array.isArray(qualification)) {
+        query.qualification = { $in: qualification };
+      } else {
+        query.qualification = qualification;
+      }
+    }
+
+    // Note: country and district filters are ignored as no schema fields exist
+
+    const doctors = await Doctor.find(query);
     res.render('finddoctor', { req, doctors });
   } catch (err) {
     console.error('Error fetching doctors:', err);
@@ -125,6 +157,9 @@ app.get('/findhospital', (req, res) => {
 })
 app.get('/profile', (req, res) => {
   res.render('profile', { req });
+})
+app.get('/emergency', (req, res) => {
+  res.render('Emergency', { req });
 })
 app.get('*', (req, res) => {
   res.status(404).send('Page Not Found')
