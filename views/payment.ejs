@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Payment</title>
+  <link href="/styles/payment.css" rel="stylesheet" />
+  <script src="/js/payment.js"></script>
+</head>
+<body>
+  <section class="payment-section">
+    <h2>Payment Page</h2>
+    <p>Please complete your payment to proceed.</p>
+    <form id="payment-form" method="POST" action="/payment/complete">
+      <!-- Payment details inputs can be added here -->
+      <button type="submit">Complete Payment</button>
+    </form>
+    <a href="/pharmacy" class="redirect-button">Go to Pharmacy</a>
+  </section>
+</body>
+</html>

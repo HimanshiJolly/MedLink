@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
+const Doctor = require('../models/doctor')
 const router = express.Router()
 
 const user=require('../models/user')
@@ -93,4 +94,12 @@ router.post('/reset', async(req, res, next) => {
 });
 
 
-module.exports = router
+router.get('/doctors', async (req, res, next) => {
+  try {
+    const doctors = await Doctor.find()
+    res.json(doctors)
+  } catch (err) {
+    next(err)
+  }
+})
+module.exports = router;
