@@ -98,21 +98,26 @@
                 </div>
                 <div class="doctor-cards">
                     <% const doctors = [
-                        { img: "/images/one.jpg", name: "Dr. Arjun Sinha", field: "General practitioner" },
-                        { img: "/images/two.jpg", name: "Dr. Shaurya Khanna", field: "Neurology" },
-                        { img: "/images/three.jpg", name: "Dr. Rakesh Nair", field: "Dentistry" },
-                        { img: "/images/four.jpg", name: "Dr. Ananya Kapoor", field: "Psychiatry" },
-                        { img: "/images/five.jpg", name: "Dr. Meera Joshi", field: "Pathology" },
-                        { img: "/images/six.jpg", name: "Dr. Kartik Iyer", field: "Prosthodontics" },
-                        { img: "/images/seven.jpg", name: "Dr. Priya Deshmukh", field: "Gynecologist" },
-                        { img: "/images/eight.jpg", name: "Dr. Nikhil Bansal", field: "Urology" },
-                        { img: "/images/nine.jpg", name: "Dr. Radhika Menon", field: "Dermatology" },
-                    ];
-                    doctors.forEach(d => { %>
-                        <div class="doctor-card">
+                        { img: "/images/one.jpg", name: "Dr. Arjun Sinha", field: "General practitioner", experience: "10 years", qualification: "MBBS", rating: 4.5 },
+                        { img: "/images/two.jpg", name: "Dr. Shaurya Khanna", field: "Neurology", experience: "8 years", qualification: "MD", rating: 4.7 },
+                        { img: "/images/three.jpg", name: "Dr. Rakesh Nair", field: "Dentistry", experience: "12 years", qualification: "MBBch", rating: 4.3 },
+                        { img: "/images/four.jpg", name: "Dr. Rahul Singla", field: "Psychiatry", experience: "15 years", qualification: "DO", rating: 4.8 },
+                        { img: "/images/five.jpg", name: "Dr. Meera Joshi", field: "Pathology", experience: "9 years", qualification: "MBBS", rating: 4.4 },
+                        { img: "/images/six.jpg", name: "Dr. Kartik Iyer", field: "Prosthodontics", experience: "7 years", qualification: "MD", rating: 4.6 },
+                        { img: "/images/seven.jpg", name: "Dr. Priya Deshmukh", field: "Gynecologist", experience: "11 years", qualification: "MBBS", rating: 4.9 },
+                        { img: "/images/eight.jpg", name: "Dr. Nikhil Bansal", field: "Urology", experience: "6 years", qualification: "MBBch", rating: 4.2 },
+                        { img: "/images/nine.jpg", name: "Dr. Radhika Menon", field: "Dermatology", experience: "13 years", qualification: "MD", rating: 4.7 },
+                    ]; %>
+                    <% doctors.forEach(d => { %>
+                        <div class="doctor-card" tabindex="0">
                             <img src="<%= d.img %>" alt="<%= d.name %>">
                             <h3><%= d.name %></h3>
                             <p><%= d.field %></p>
+                            <div class="doctor-details" style="display:none; text-align:left; margin-top:10px;">
+                                <p><strong>Experience:</strong> <%= d.experience %></p>
+                                <p><strong>Qualification:</strong> <%= d.qualification %></p>
+                                <p><strong>Rating:</strong> <%= d.rating %> / 5</p>
+                            </div>
                         </div>
                     <% }) %>
                 </div>
@@ -168,6 +173,75 @@
         </div>
     </footer>
     <script src="/js/home1.js"></script>
+    <script>
+        // Toggle doctor details on card click
+        document.querySelectorAll('.doctor-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const details = card.querySelector('.doctor-details');
+                if (details.style.display === 'none' || details.style.display === '') {
+                    details.style.display = 'block';
+                } else {
+                    details.style.display = 'none';
+                }
+            });
+        });
+
+        // Filtering functionality
+        const doctors = [
+            { img: "/images/one.jpg", name: "Dr. Arjun Sinha", field: "General practitioner", experience: "10 years", qualification: "MBBS", rating: 4.5 },
+            { img: "/images/two.jpg", name: "Dr. Shaurya Khanna", field: "Neurology", experience: "8 years", qualification: "MD", rating: 4.7 },
+            { img: "/images/three.jpg", name: "Dr. Rakesh Nair", field: "Dentistry", experience: "12 years", qualification: "MBBch", rating: 4.3 },
+            { img: "/images/four.jpg", name: "Dr. Ananya Kapoor", field: "Psychiatry", experience: "15 years", qualification: "DO", rating: 4.8 },
+            { img: "/images/five.jpg", name: "Dr. Meera Joshi", field: "Pathology", experience: "9 years", qualification: "MBBS", rating: 4.4 },
+            { img: "/images/six.jpg", name: "Dr. Kartik Iyer", field: "Prosthodontics", experience: "7 years", qualification: "MD", rating: 4.6 },
+            { img: "/images/seven.jpg", name: "Dr. Priya Deshmukh", field: "Gynecologist", experience: "11 years", qualification: "MBBS", rating: 4.9 },
+            { img: "/images/eight.jpg", name: "Dr. Nikhil Bansal", field: "Urology", experience: "6 years", qualification: "MBBch", rating: 4.2 },
+            { img: "/images/nine.jpg", name: "Dr. Radhika Menon", field: "Dermatology", experience: "13 years", qualification: "MD", rating: 4.7 },
+        ];
+        const doctorCardsContainer = document.querySelector('.doctor-cards');
+        const specialityCheckboxes = document.querySelectorAll('.filter-section input[type="checkbox"]');
+        const searchInput = document.querySelector('.filter-section input[type="text"]');
+        const updateSearchBtn = document.querySelector('.filter-section .update-search');
+
+        function filterDoctors() {
+            const selectedSpecialities = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.id);
+            const searchText = searchInput.value.toLowerCase();
+
+            const filteredDoctors = doctors.filter(d => {
+                const specialityMatch = selectedSpecialities.length === 0 || selectedSpecialities.includes(d.field.toLowerCase().replace(/\s/g, ''));
+                const searchMatch = d.name.toLowerCase().includes(searchText) || d.field.toLowerCase().includes(searchText);
+                return specialityMatch && searchMatch;
+            });
+
+            doctorCardsContainer.innerHTML = '';
+            filteredDoctors.forEach(d => {
+                const card = document.createElement('div');
+                card.className = 'doctor-card';
+                card.tabIndex = 0;
+                card.innerHTML = `
+                    <img src="${d.img}" alt="${d.name}">
+                    <h3>${d.name}</h3>
+                    <p>${d.field}</p>
+                    <div class="doctor-details" style="display:none; text-align:left; margin-top:10px;">
+                        <p><strong>Experience:</strong> ${d.experience}</p>
+                        <p><strong>Qualification:</strong> ${d.qualification}</p>
+                        <p><strong>Rating:</strong> ${d.rating} / 5</p>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    const details = card.querySelector('.doctor-details');
+                    if (details.style.display === 'none' || details.style.display === '') {
+                        details.style.display = 'block';
+                    } else {
+                        details.style.display = 'none';
+                    }
+                });
+                doctorCardsContainer.appendChild(card);
+            });
+        }
+
+        updateSearchBtn.addEventListener('click', filterDoctors);
+    </script>
   <script>
         window.__ow = window.__ow || {};
         window.__ow.organizationId = "43dd45ca-5cea-4958-ab55-6ef82768cd65";
