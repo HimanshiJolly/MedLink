@@ -93,6 +93,8 @@ app.get('/contact', (req, res) => {
   res.render('contact',{req})
 })
 const Doctor = require('./models/doctor');
+const Appointment = require('./models/appointment');
+
 app.get('/finddoctor', async (req, res) => {
   try {
     const { search, speciality, qualification } = req.query;
@@ -115,7 +117,34 @@ app.get('/finddoctor', async (req, res) => {
       }
     }
     const doctors = await Doctor.find(query);
-    res.render('finddoctor', { req, doctors });
+
+    // Define possible timeslots (example: 9am to 5pm every hour)
+    const possibleTimeslots = [];
+    const startHour = 9;
+    const endHour = 17;
+    const today = new Date();
+    today.setMinutes(0, 0, 0);
+
+    for (let hour = startHour; hour < endHour; hour++) {
+      const slot = new Date(today);
+      slot.setHours(hour);
+      possibleTimeslots.push(slot);
+    }
+
+    // For each doctor, find booked timeslots and calculate available timeslots
+    const doctorsWithTimeslots = await Promise.all(doctors.map(async (doctor) => {
+      const bookedAppointments = await Appointment.find({ doctor: doctor._id });
+      const bookedTimes = bookedAppointments.map(app => app.timeslot.getTime());
+
+      const availableTimeslots = possibleTimeslots.filter(slot => !bookedTimes.includes(slot.getTime()));
+
+      return {
+        ...doctor.toObject(),
+        availableTimeslots
+      };
+    }));
+
+    res.render('finddoctor', { req, doctors: doctorsWithTimeslots });
   } catch (err) {
     console.error('Error fetching doctors:', err);
     res.status(500).send('Internal Server Error');
@@ -124,6 +153,30 @@ app.get('/finddoctor', async (req, res) => {
 app.get('/Appointment', (req, res) => {
   res.render('Appointment', { req })
 })
+
+app.post('/book-appointment', async (req, res) => {
+  if (!req.session || !req.session.user) {
+    return res.status(401).send('User not logged in');
+  }
+  try {
+    const { name, email, phone, appointmentDate, speciality, doctor, timeslot, message } = req.body;
+    const username = req.session.user.username;
+
+    // Create new appointment document
+    const newAppointment = new Appointment({
+      username,
+      doctor,
+      timeslot: new Date(timeslot),
+    });
+
+    await newAppointment.save();
+
+    res.redirect('/profile');
+  } catch (err) {
+    console.error('Error booking appointment:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 app.get('/reset', (req, res) => {
   res.render('reset', { req })
 })
