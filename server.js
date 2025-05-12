@@ -1,5 +1,7 @@
-const express = require(`express`)
+const express = require('express')
 const path = require('path')
+const mongoose = require('mongoose')
+
 const app = express()
 app.set("view engine", "ejs")
 const PORT = 8080
@@ -16,6 +18,11 @@ app.use(session({
 const compression = require('compression')
 const { morganLogger, devLogger } = require('./middlewares/morgan')
 
+// MongoDB connection
+const mongoURI = 'mongodb://localhost:27017/Medlink'; // Replace with your MongoDB connection string
+mongoose.connect(mongoURI)
+.then(() => console.log('MongoDB connected successfully'))
+.catch((err) => console.error('MongoDB connection error:', err))
 
 app.use(compression());
 app.use(express.json())
@@ -47,24 +54,29 @@ app.get('/login', (req, res) => {
 app.get('/services', (req, res) => {
  res.render('Services',{req}) 
 })
-app.get('/pharmacy', (req, res) => {
-  const medicines = loadMedicines(); 
-  const sliderImages = loadSliderImages(); 
-  const fitnessDeals = loadFitnessDeals();
-  const personalCareProducts = loadPersonalCareProducts();
-  const surgicalDeals = loadSurgicalDeals();
-  const surgicalDevices = loadSurgicalDevices();
+app.get('/pharmacy', async (req, res) => {
+  try {
+    const medicines = await loadMedicines();
+    const sliderImages = await loadSliderImages();
+    const fitnessDeals = await loadFitnessDeals();
+    const personalCareProducts = await loadPersonalCareProducts();
+    const surgicalDeals = await loadSurgicalDeals();
+    const surgicalDevices = await loadSurgicalDevices();
 
-  res.render('medicine', {
-    title: 'MedLink - Medicine Page',
-    medicines,
-    sliderImages,
-    fitnessDeals,
-    personalCareProducts,
-    surgicalDeals,
-    surgicalDevices,
-    req
-  });
+    res.render('medicine', {
+      title: 'MedLink - Medicine Page',
+      medicines,
+      sliderImages,
+      fitnessDeals,
+      personalCareProducts,
+      surgicalDeals,
+      surgicalDevices,
+      req
+    });
+  } catch (err) {
+    console.error('Error loading pharmacy data:', err);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 app.get('/cart', (req, res) => {
