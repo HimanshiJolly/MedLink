@@ -116,6 +116,7 @@
                                 <p><strong>Qualification:</strong> <%= d.qualification %></p>
                                 <p><strong>Rating:</strong> <%= d.rating %> / 5</p>
                             </div>
+                            <button onclick="window.location.href='/Appointment?doctorId=<%= d._id %>'" class="book-appointment-btn">Book an Appointment</button>
                         </div>
                     <% }) %>
                 </div>

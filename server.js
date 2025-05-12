@@ -1,9 +1,10 @@
 const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
+
 const app = express()
 app.set("view engine", "ejs")
-const PORT = 8080
+const PORT = 8000
 const logger = require('./middlewares/logger')
 const errorHandler = require('./middlewares/errorHandler')
 const allowCors = require('./middlewares/cors')
@@ -16,10 +17,12 @@ app.use(session({
 }))
 const compression = require('compression')
 const { morganLogger, devLogger } = require('./middlewares/morgan')
+
 const mongoURI = 'mongodb://127.0.0.1:27017/Medlink'; 
 mongoose.connect(mongoURI)
 .then(() => console.log('MongoDB connected successfully'))
 .catch((err) => console.error('MongoDB connection error:', err))
+
 app.use(compression());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -74,15 +77,28 @@ app.get('/pharmacy', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
 app.get('/cart', (req, res) => {
   res.render('medcart', { req })
 })
+
 app.get('/order-by-prescription', (req, res) => {
   res.render('orderByPrescription', { req })
 })
+
 app.get('/payment', (req, res) => {
   res.render('payment', { req });
 });
+
+app.post('/payment/complete', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: 'User not logged in' });
+  }
+  // Payment processing logic can be added here
+  // For now, just respond with success
+  res.status(200).send('Payment completed');
+});
+
 app.get('/register', (req, res) => {
   res.render('register', { req })
 })
@@ -97,11 +113,11 @@ const Appointment = require('./models/appointment');
 
 app.get('/finddoctor', async (req, res) => {
   try {
-    const { search, speciality, qualification } = req.query;
+    const { speciality } = req.query;
+
+    // Build query object with only speciality filter
     const query = {};
-    if (search) {
-      query.name = { $regex: search, $options: 'i' };
-    }
+
     if (speciality) {
       if (Array.isArray(speciality)) {
         query.field = { $in: speciality };
@@ -109,72 +125,91 @@ app.get('/finddoctor', async (req, res) => {
         query.field = speciality;
       }
     }
-    if (qualification) {
-      if (Array.isArray(qualification)) {
-        query.qualification = { $in: qualification };
-      } else {
-        query.qualification = qualification;
-      }
-    }
+
     const doctors = await Doctor.find(query);
-
-    // Define possible timeslots (example: 9am to 5pm every hour)
-    const possibleTimeslots = [];
-    const startHour = 9;
-    const endHour = 17;
-    const today = new Date();
-    today.setMinutes(0, 0, 0);
-
-    for (let hour = startHour; hour < endHour; hour++) {
-      const slot = new Date(today);
-      slot.setHours(hour);
-      possibleTimeslots.push(slot);
-    }
-
-    // For each doctor, find booked timeslots and calculate available timeslots
-    const doctorsWithTimeslots = await Promise.all(doctors.map(async (doctor) => {
-      const bookedAppointments = await Appointment.find({ doctor: doctor._id });
-      const bookedTimes = bookedAppointments.map(app => app.timeslot.getTime());
-
-      const availableTimeslots = possibleTimeslots.filter(slot => !bookedTimes.includes(slot.getTime()));
-
-      return {
-        ...doctor.toObject(),
-        availableTimeslots
-      };
-    }));
-
-    res.render('finddoctor', { req, doctors: doctorsWithTimeslots });
+    res.render('finddoctor', { req, doctors });
   } catch (err) {
     console.error('Error fetching doctors:', err);
     res.status(500).send('Internal Server Error');
   }
 });
-app.get('/Appointment', (req, res) => {
-  res.render('Appointment', { req })
-})
 
 app.post('/book-appointment', async (req, res) => {
-  if (!req.session || !req.session.user) {
-    return res.status(401).send('User not logged in');
-  }
   try {
-    const { name, email, phone, appointmentDate, speciality, doctor, timeslot, message } = req.body;
-    const username = req.session.user.username;
+    if (!req.session.user) {
+      return res.status(401).send('You must be logged in to book an appointment.');
+    }
 
-    // Create new appointment document
+    const { name, email, phone, appointmentDate, timeslot, speciality, doctor, message } = req.body;
+
+    // Validate required fields
+    if (!name || !email || !phone || !appointmentDate || !timeslot || !speciality || !doctor) {
+      return res.status(400).send('All required fields must be filled.');
+    }
+
+    // Check if appointment already exists for the same doctor, date, and timeslot
+    const existingAppointment = await Appointment.findOne({
+      doctorId: doctor,
+      appointmentDate: new Date(appointmentDate),
+      timeSlot: timeslot
+    });
+
+    if (existingAppointment) {
+      return res.status(409).send('This time slot is already booked for the selected doctor.');
+    }
+
+    // Create new appointment
     const newAppointment = new Appointment({
-      username,
-      doctor,
-      timeslot: new Date(timeslot),
+      userId: req.session.user._id,
+      doctorId: doctor,
+      appointmentDate: new Date(appointmentDate),
+      timeSlot: timeslot,
+      message: message || ''
     });
 
     await newAppointment.save();
 
-    res.redirect('/profile');
+    res.send('Appointment booked successfully!');
   } catch (err) {
     console.error('Error booking appointment:', err);
     res.status(500).send('Internal Server Error');
+  }
+});
+app.get('/Appointment', async (req, res) => {
+  try {
+    const doctors = await Doctor.find({});
+    const selectedDoctorId = req.query.doctorId || null;
+    const selectedSpeciality = req.query.speciality || null;
+    res.render('Appointment', { req, doctors, selectedDoctorId, selectedSpeciality });
+  } catch (err) {
+    console.error('Error fetching doctors for appointment:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.get('/api/booked-timeslots', async (req, res) => {
+  try {
+    const { doctorId, appointmentDate } = req.query;
+    if (!doctorId || !appointmentDate) {
+      return res.status(400).json({ error: 'doctorId and appointmentDate are required' });
+    }
+    const date = new Date(appointmentDate);
+    const nextDate = new Date(date);
+    nextDate.setDate(date.getDate() + 1);
+
+    const appointments = await Appointment.find({
+      doctorId: doctorId,
+      appointmentDate: {
+        $gte: date,
+        $lt: nextDate
+      }
+    });
+
+    const bookedSlots = appointments.map(app => app.timeSlot);
+    res.json({ bookedSlots });
+  } catch (err) {
+    console.error('Error fetching booked timeslots:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 app.get('/reset', (req, res) => {
@@ -192,6 +227,7 @@ app.get('/emergency', (req, res) => {
 app.get('*', (req, res) => {
   res.status(404).send('Page Not Found')
 })
+
 app.use(errorHandler)
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
