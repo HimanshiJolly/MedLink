@@ -96,9 +96,17 @@ app.get('/about', (req, res) => {
 app.get('/contact', (req, res) => {
   res.render('contact',{req})
 })
-app.get('/finddoctor', (req, res) => {
-  res.render('finddoctor', { req });
-})
+const Doctor = require('./models/doctor');
+
+app.get('/finddoctor', async (req, res) => {
+  try {
+    const doctors = await Doctor.find();
+    res.render('finddoctor', { req, doctors });
+  } catch (err) {
+    console.error('Error fetching doctors:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 app.get('/Appointment', (req, res) => {
   res.render('Appointment', { req })
 })
