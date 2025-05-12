@@ -51,13 +51,25 @@ router.get('/logout', (req, res, next) => {
   })
 })
 
-router.get('/user', (req, res) => {
+const User = require('../models/user');
+
+router.get('/user', async (req, res) => {
   if (req.session && req.session.user) {
-    res.json({ user: req.session.user })
+    try {
+      let userData = await User.findOne({ name: req.session.user.name }).select('name username email').exec();
+      if (userData) {
+        res.json({ user: userData });
+      } else {
+        res.json({ user: null });
+      }
+    } catch (err) {
+      console.error('Error fetching user data:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
   } else {
-    res.json({ user: null })
+    res.json({ user: null });
   }
-})
+});
 router.post('/reset', async(req, res, next) => {
   let { email, newPassword, confirmPassword } = req.body
   if (newPassword !== confirmPassword) {

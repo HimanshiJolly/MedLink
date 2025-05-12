@@ -30,6 +30,75 @@ nav ul li {
   display: inline-block;
   line-height: 70px;
 }
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  width: 120px;
+  z-index: 10;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dropdown-content li {
+  display: block;
+}
+
+.dropdown-content li a {
+  color: #333;
+  padding: 3px;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+}
+
+.dropdown-content li a:hover {
+  background-color: #146c94;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.icon-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.circle-bg {
+  position: absolute;
+  font-size: 40px;
+  color: #eee;
+  top: 0;
+  left: 0;
+}
+
+.user-icon {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  font-size: 25px;
+  color: #333;
+  z-index: 1;
+}
+
+.icon-wrapper:hover .circle-bg {
+  color: #146c94;
+}
+
+.icon-wrapper:hover .user-icon {
+  color: white;
+}
 
 nav ul li a {
   text-decoration: none;

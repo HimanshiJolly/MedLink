@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('includes/head') %>
+    <link href="styles/profile.css" rel="stylesheet" />
+  </head>
+  <body>
+    <%- include('includes/header') %>
+    <div class="profile-container">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <h2 id="user-name">Loading...</h2>
+      </div>
+
+      <!-- Details Grid -->
+      <div class="profile-content">
+        <!-- Orders -->
+        <div class="card">
+          <h3>My Orders</h3>
+          <ul>
+            <li>Order data loading not implemented yet.</li>
+          </ul>
+        </div>
+
+        <!-- Appointments -->
+        <div class="card">
+          <h3>My Appointments</h3>
+          <ul>
+            <li>Appointment data loading not implemented yet.</li>
+          </ul>
+        </div>
+
+        <!-- General Info -->
+        <div class="card">
+          <h3>General Info</h3>
+          <p><strong>Name:</strong> <span id="info-name">Loading...</span></p>
+          <p>
+            <strong>Username:</strong>
+            <span id="info-username">Loading...</span>
+          </p>
+          <p><strong>Email:</strong> <span id="info-email">Loading...</span></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      async function fetchUserInfo() {
+        try {
+          const response = await fetch("/api/user");
+          if (!response.ok) throw new Error("Network response was not ok");
+          const data = await response.json();
+          if (data.user) {
+            document.getElementById("user-name").textContent =
+              data.user.name || "N/A";
+
+            document.getElementById("info-name").textContent =
+              data.user.name || "N/A";
+            document.getElementById("info-username").textContent =
+              data.user.username || "N/A";
+            document.getElementById("info-email").textContent =
+              data.user.email || "N/A";
+          } else {
+            document.getElementById("user-name").textContent = "Guest";
+            document.getElementById("info-name").textContent = "N/A";
+            document.getElementById("info-username").textContent = "N/A";
+            document.getElementById("info-email").textContent = "N/A";
+          }
+        } catch (error) {
+          console.error("Failed to fetch user info:", error);
+          document.getElementById("user-name").textContent =
+            "Error loading user info";
+          document.getElementById("info-name").textContent = "Error";
+          document.getElementById("info-username").textContent = "Error";
+          document.getElementById("info-email").textContent = "Error";
+        }
+      }
+      fetchUserInfo();
+    </script>
+    <%- include('includes/footer') %>
+  </body>
+</html>

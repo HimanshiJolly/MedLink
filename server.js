@@ -108,9 +108,13 @@ app.get('/reset', (req, res) => {
 app.get('/findhospital', (req, res) => {
   res.render('findHospital', { req });
 })
+app.get('/profile', (req, res) => {
+  res.render('profile', { req });
+})
 app.get('*', (req, res) => {
   res.status(404).send('Page Not Found')
 })
+
 app.use(errorHandler)
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
