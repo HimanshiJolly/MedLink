@@ -19,7 +19,7 @@ const compression = require('compression')
 const { morganLogger, devLogger } = require('./middlewares/morgan')
 
 // MongoDB connection
-const mongoURI = 'mongodb://localhost:27017/Medlink'; // Replace with your MongoDB connection string
+const mongoURI = 'mongodb://127.0.0.1:27017/Medlink'; // Replace with your MongoDB connection string
 mongoose.connect(mongoURI)
 .then(() => console.log('MongoDB connected successfully'))
 .catch((err) => console.error('MongoDB connection error:', err))

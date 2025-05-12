@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // MongoDB connection URI
-const mongoURI = 'mongodb://localhost:27017/Medlink'; // Replace with your MongoDB connection string
+const mongoURI = 'mongodb://127.0.0.1:27017/Medlink'; // Replace with your MongoDB connection string
 
 // Connect to MongoDB
 mongoose.connect(mongoURI)
