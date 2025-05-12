@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
-
 const app = express()
 app.set("view engine", "ejs")
 const PORT = 8080
@@ -17,12 +16,10 @@ app.use(session({
 }))
 const compression = require('compression')
 const { morganLogger, devLogger } = require('./middlewares/morgan')
-
 const mongoURI = 'mongodb://127.0.0.1:27017/Medlink'; 
 mongoose.connect(mongoURI)
 .then(() => console.log('MongoDB connected successfully'))
 .catch((err) => console.error('MongoDB connection error:', err))
-
 app.use(compression());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -77,28 +74,15 @@ app.get('/pharmacy', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
 app.get('/cart', (req, res) => {
   res.render('medcart', { req })
 })
-
 app.get('/order-by-prescription', (req, res) => {
   res.render('orderByPrescription', { req })
 })
-
 app.get('/payment', (req, res) => {
   res.render('payment', { req });
 });
-
-app.post('/payment/complete', (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ error: 'User not logged in' });
-  }
-  // Payment processing logic can be added here
-  // For now, just respond with success
-  res.status(200).send('Payment completed');
-});
-
 app.get('/register', (req, res) => {
   res.render('register', { req })
 })
@@ -109,18 +93,13 @@ app.get('/contact', (req, res) => {
   res.render('contact',{req})
 })
 const Doctor = require('./models/doctor');
-
 app.get('/finddoctor', async (req, res) => {
   try {
     const { search, speciality, qualification } = req.query;
-
-    // Build query object
     const query = {};
-
     if (search) {
       query.name = { $regex: search, $options: 'i' };
     }
-
     if (speciality) {
       if (Array.isArray(speciality)) {
         query.field = { $in: speciality };
@@ -128,7 +107,6 @@ app.get('/finddoctor', async (req, res) => {
         query.field = speciality;
       }
     }
-
     if (qualification) {
       if (Array.isArray(qualification)) {
         query.qualification = { $in: qualification };
@@ -136,9 +114,6 @@ app.get('/finddoctor', async (req, res) => {
         query.qualification = qualification;
       }
     }
-
-    // Note: country and district filters are ignored as no schema fields exist
-
     const doctors = await Doctor.find(query);
     res.render('finddoctor', { req, doctors });
   } catch (err) {
@@ -164,7 +139,6 @@ app.get('/emergency', (req, res) => {
 app.get('*', (req, res) => {
   res.status(404).send('Page Not Found')
 })
-
 app.use(errorHandler)
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`)
