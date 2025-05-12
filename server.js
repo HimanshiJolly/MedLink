@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 const app = express()
 app.set("view engine", "ejs")
-const PORT = 8000
+const PORT = 8080
 const logger = require('./middlewares/logger')
 const errorHandler = require('./middlewares/errorHandler')
 const allowCors = require('./middlewares/cors')
