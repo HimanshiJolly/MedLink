@@ -1,6 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
     loadCart(); 
     document.getElementById("clear-cart-btn").addEventListener("click", clearCart); // Clear cart button
+
+    // Add event listener for buy button
+    const buyBtn = document.getElementById("buy-btn");
+    if (buyBtn) {
+        buyBtn.addEventListener("click", function () {
+            fetch('/api/user')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.user) {
+                        // User is logged in, proceed to payment page
+                        window.location.href = '/payment';
+                    } else {
+                        // User not logged in, show alert
+                        alert('Please log in to proceed with the purchase.');
+                    }
+                })
+                .catch(() => {
+                    alert('Error checking login status. Please try again.');
+                });
+        });
+    }
 });
 
 function loadCart() {

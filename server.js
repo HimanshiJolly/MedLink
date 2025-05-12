@@ -18,8 +18,7 @@ app.use(session({
 const compression = require('compression')
 const { morganLogger, devLogger } = require('./middlewares/morgan')
 
-// MongoDB connection
-const mongoURI = 'mongodb://127.0.0.1:27017/Medlink'; // Replace with your MongoDB connection string
+const mongoURI = 'mongodb://127.0.0.1:27017/Medlink'; 
 mongoose.connect(mongoURI)
 .then(() => console.log('MongoDB connected successfully'))
 .catch((err) => console.error('MongoDB connection error:', err))
@@ -86,6 +85,19 @@ app.get('/cart', (req, res) => {
 app.get('/order-by-prescription', (req, res) => {
   res.render('orderByPrescription', { req })
 })
+
+app.get('/payment', (req, res) => {
+  res.render('payment', { req });
+});
+
+app.post('/payment/complete', (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: 'User not logged in' });
+  }
+  // Payment processing logic can be added here
+  // For now, just respond with success
+  res.status(200).send('Payment completed');
+});
 
 app.get('/register', (req, res) => {
   res.render('register', { req })
