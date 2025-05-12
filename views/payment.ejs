@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <title>Payment</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="/styles/payment.css" rel="stylesheet" />
-  <script src="/js/payment.js"></script>
+  <script src="/js/payment.js" defer></script>
 </head>
 <body>
   <section class="payment-section">
     <h2>Payment Page</h2>
     <p>Please complete your payment to proceed.</p>
-    <form id="payment-form" method="POST" action="/payment/complete">
-      <!-- Payment details inputs can be added here -->
-      <button type="submit">Complete Payment</button>
-    </form>
-    <a href="/pharmacy" class="redirect-button">Go to Pharmacy</a>
+
+    <button id="complete-payment-btn" class="btn-primary">Make Payment</button>
+    <a href="/pharmacy" class="redirect-button">Back to Shopping</a>
   </section>
 </body>
 </html>

@@ -1,24 +1,14 @@
-document.getElementById('payment-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      fetch('/payment/complete', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({})
-      })
-      .then(response => {
-        if (response.ok) {
-          // Clear cart on client side
-          localStorage.removeItem('cart');
-          window.location.href = '/pharmacy';
-        } else if (response.status === 401) {
-          alert('Please log in to proceed with the purchase.');
-        } else {
-          alert('Payment failed. Please try again.');
-        }
-      })
-      .catch(() => {
-        alert('Payment failed. Please try again.');
-      });
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  const paymentBtn = document.getElementById('complete-payment-btn');
+
+  paymentBtn.addEventListener('click', () => {
+    // Show alert
+    alert('✅ Payment done successfully! Redirecting to Pharmacy...');
+
+    // Clear local cart
+    localStorage.removeItem('cart');
+
+    // Redirect to /pharmacy
+    window.location.href = '/pharmacy';
+  });
+});

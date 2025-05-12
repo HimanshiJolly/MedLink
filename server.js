@@ -90,21 +90,13 @@ app.get('/payment', (req, res) => {
   res.render('payment', { req });
 });
 
-app.post('/payment/complete', (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ error: 'User not logged in' });
-  }
-  // Payment processing logic can be added here
-  // For now, just respond with success
-  res.status(200).send('Payment completed');
-});
-
 app.get('/register', (req, res) => {
   res.render('register', { req })
 })
 app.get('/about', (req, res) => {
   res.render('Aboutus', { req })
 })
+
 app.get('/contact', (req, res) => {
   res.render('contact',{req})
 })
