@@ -34,7 +34,7 @@
         <i class="fa-solid fa-calendar-check"></i>
       </h2>
       <% if (req.session && req.session.user) { %>
-      <form id="appointmentForm" method="POST" action="/book-appointment">
+      <form id="appointmentForm" method="POST" action="/api/book-appointment">
         <div class="form-row">
           <div class="form-group">
             <label for="name">Full Name</label>
@@ -174,11 +174,7 @@
       });
       document
         .getElementById("appointmentForm")
-        .addEventListener("submit", function (event) {
-          // event.preventDefault();
-          // alert("Appointment booked successfully!");
-          // window.location.href = "/";
-        });
+        .addEventListener("submit", function (event) {});
     </script>
 
     <script>
