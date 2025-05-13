@@ -1,164 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MedLink</title>
-    <link rel="icon" href="/images/iconhead.jpg">
-    <link rel="stylesheet" href="/styles/shine.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<body>
-    <nav>
-        <input type="checkbox" id="check" name="" value="">
-        <label for="check" id="checkbtn">
-            <i class="fa fa-bars"></i>
-        </label>
-        <label class="logo">
-            <img src="/images/icon.jpg" height="70px" width="150px">
-        </label>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/services" class="active">Services</a></li>
-            <li><a href="/about">About us</a></li>
-            <li><a href="/contact">Contact us</a></li>
-            <li id="login">
-                <a href="/login">Login/Signup</a>
-            </li>
-            <li id="user-info" style="display: none">
-                <a href="#">Welcome, <span id="name"></span>!</a>
-                <a href="/api/logout" id="logout-btn">Logout</a>
-            </li>
-        </ul>
-    </nav>
-
+    <link rel="icon" href="/images/iconhead.jpg" />
+    <link rel="stylesheet" href="/styles/shine.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <%- include('includes/header') %>
     <section class="search-section">
-        <div class="search-container">
-            <h1>Search for a specialist and make an appointment</h1>
-            <p>Select your doctor and preferred time slot to book your appointment</p>
-            <div class="booking-form">
-                <select>
-                    <option value="">Speciality / Doctor / Hospital</option>
-                </select>
-                <input type="text" placeholder="Location">
-                <input type="date">
-                <button>Search</button>
-            </div>
+      <div class="search-container">
+        <h1>Search for a specialist and make an appointment</h1>
+        <p>
+          Select your doctor and preferred time slot to book your appointment
+        </p>
+        <div class="booking-form">
+          <select>
+            <option value="">Speciality / Doctor / Hospital</option>
+          </select>
+          <input type="text" placeholder="Location" />
+          <input type="date" />
+          <button>Search</button>
         </div>
+      </div>
     </section>
 
     <section class="results-section">
-        <div class="results-container">
-            <form class="filter-section" method="GET" action="/finddoctor">
-                <h2>Refine your search</h2>
-                <input type="text" name="search" placeholder="Search" value="<%= typeof req.query.search !== 'undefined' ? req.query.search : '' %>">
-                <h3>Speciality</h3>
-                <ul>
-                    <% const specialities = [
-                        { id: "general", name: "General practitioner", icon: "https://cdn-icons-png.flaticon.com/128/46/46196.png" },
-                        { id: "dentistry", name: "Dentistry", icon: "https://cdn-icons-png.flaticon.com/128/3467/3467825.png" },
-                        { id: "neurology", name: "Neurology", icon: "https://cdn-icons-png.flaticon.com/128/9133/9133647.png" },
-                        { id: "xray", name: "X-Ray", icon: "https://cdn-icons-png.flaticon.com/128/4006/4006101.png" },
-                        { id: "dermatology", name: "Dermatology", icon: "https://cdn-icons-png.flaticon.com/128/7305/7305176.png" },
-                        { id: "urology", name: "Urology", icon: "https://cdn-icons-png.flaticon.com/128/2184/2184274.png" },
-                        { id: "psychiatry", name: "Psychiatry", icon: "https://cdn-icons-png.flaticon.com/128/4637/4637907.png" }
-                    ];
-                    specialities.forEach(s => { %>
-                        <li>
-                            <input type="checkbox" id="<%= s.id %>" name="speciality" value="<%= s.name %>" <%= (Array.isArray(req.query.speciality) ? req.query.speciality.includes(s.name) : req.query.speciality === s.name) ? 'checked' : '' %>>
-                            <label for="<%= s.id %>">
-                                <img src="<%= s.icon %>" alt="<%= s.name %>" class="speciality-logo"> <%= s.name %>
-                            </label>
-                        </li>
-                    <% }); %>
-                </ul>
-                <h3>Qualification</h3>
-                <ul>
-                    <% ["MBBS", "MBBch", "MD", "DO"].forEach(q => { %>
-                        <li>
-                            <input type="checkbox" id="<%= q.toLowerCase() %>" name="qualification" value="<%= q %>" <%= (Array.isArray(req.query.qualification) ? req.query.qualification.includes(q) : req.query.qualification === q) ? 'checked' : '' %>>
-                            <label for="<%= q.toLowerCase() %>"><%= q %></label>
-                        </li>
-                    <% }) %>
-                </ul>
-                <h3>Country</h3>
-                <ul>
-                    <li>
-                        <input type="checkbox" id="denmark" name="country" value="Denmark" <%= req.query.country === 'Denmark' ? 'checked' : '' %>>
-                        <label for="denmark">Denmark (DK)</label>
-                    </li>
-                </ul>
-                <h3>District</h3>
-                <ul>
-                    <li>
-                        <input type="checkbox" id="copenhagen" name="district" value="Copenhagen" <%= req.query.district === 'Copenhagen' ? 'checked' : '' %>>
-                        <label for="copenhagen">Copenhagen (CPH)</label>
-                    </li>
-                </ul>
-                <button type="submit" class="update-search">Update search</button>
-            </form>
+      <div class="results-container">
+        <form class="filter-section" method="GET" action="/finddoctor">
+          <h2>Refine your search</h2>
+          <input
+            type="text"
+            name="search"
+            placeholder="Search"
+            value="<%= typeof req.query.search !== 'undefined' ? req.query.search : '' %>"
+          />
+          <h3>Speciality</h3>
+          <ul>
+            <% const specialities = [ { id: "general", name: "General
+            practitioner", icon:
+            "https://cdn-icons-png.flaticon.com/128/46/46196.png" }, { id:
+            "dentistry", name: "Dentistry", icon:
+            "https://cdn-icons-png.flaticon.com/128/3467/3467825.png" }, { id:
+            "neurology", name: "Neurology", icon:
+            "https://cdn-icons-png.flaticon.com/128/9133/9133647.png" }, { id:
+            "xray", name: "X-Ray", icon:
+            "https://cdn-icons-png.flaticon.com/128/4006/4006101.png" }, { id:
+            "dermatology", name: "Dermatology", icon:
+            "https://cdn-icons-png.flaticon.com/128/7305/7305176.png" }, { id:
+            "urology", name: "Urology", icon:
+            "https://cdn-icons-png.flaticon.com/128/2184/2184274.png" }, { id:
+            "psychiatry", name: "Psychiatry", icon:
+            "https://cdn-icons-png.flaticon.com/128/4637/4637907.png" } ];
+            specialities.forEach(s => { %>
+            <li>
+              <input type="checkbox" id="<%= s.id %>" name="speciality"
+              value="<%= s.name %>" <%= (Array.isArray(req.query.speciality) ?
+              req.query.speciality.includes(s.name) : req.query.speciality ===
+              s.name) ? 'checked' : '' %>>
+              <label for="<%= s.id %>">
+                <img
+                  src="<%= s.icon %>"
+                  alt="<%= s.name %>"
+                  class="speciality-logo"
+                />
+                <%= s.name %>
+              </label>
+            </li>
+            <% }); %>
+          </ul>
+          <h3>Qualification</h3>
+          <ul>
+            <% ["MBBS", "MBBch", "MD", "DO"].forEach(q => { %>
+            <li>
+              <input type="checkbox" id="<%= q.toLowerCase() %>"
+              name="qualification" value="<%= q %>" <%=
+              (Array.isArray(req.query.qualification) ?
+              req.query.qualification.includes(q) : req.query.qualification ===
+              q) ? 'checked' : '' %>>
+              <label for="<%= q.toLowerCase() %>"><%= q %></label>
+            </li>
+            <% }) %>
+          </ul>
+          <h3>Country</h3>
+          <ul>
+            <li>
+              <input type="checkbox" id="denmark" name="country" value="Denmark"
+              <%= req.query.country === 'Denmark' ? 'checked' : '' %>>
+              <label for="denmark">Denmark (DK)</label>
+            </li>
+          </ul>
+          <h3>District</h3>
+          <ul>
+            <li>
+              <input type="checkbox" id="copenhagen" name="district"
+              value="Copenhagen" <%= req.query.district === 'Copenhagen' ?
+              'checked' : '' %>>
+              <label for="copenhagen">Copenhagen (CPH)</label>
+            </li>
+          </ul>
+          <button type="submit" class="update-search">Update search</button>
+        </form>
 
-            <div class="doctor-list">
-                <div class="list-header">
-                    <p>Showing 175 search results</p>
-                    <select>
-                        <option value="highest">Sort by: Highest rated</option>
-                    </select>
-                </div>
-                <div class="doctor-cards">
-                    <% doctors.forEach(d => { %>
-                        <div class="doctor-card" tabindex="0">
-                            <img src="<%= d.img %>" alt="<%= d.name %>">
-                            <h3><%= d.name %></h3>
-                            <p><%= d.field %></p>
-                            <div class="doctor-details" style="display:none; text-align:left; margin-top:10px;">
-                                <p><strong>Experience:</strong> <%= d.experience %></p>
-                                <p><strong>Qualification:</strong> <%= d.qualification %></p>
-                                <p><strong>Rating:</strong> <%= d.rating %> / 5</p>
-                            </div>
-                            <button onclick="window.location.href='/Appointment?doctorId=<%= d._id %>'" class="book-appointment-btn">Book an Appointment</button>
-                        </div>
-                    <% }) %>
-                </div>
-
-                <div class="pagination">
-                    <a href="#">&lt;</a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">...</a>
-                    <a href="#">20</a>
-                    <a href="#">&gt;</a>
-                </div>
+        <div class="doctor-list">
+          <div class="list-header">
+            <p>Showing 175 search results</p>
+            <select>
+              <option value="highest">Sort by: Highest rated</option>
+            </select>
+          </div>
+          <div class="doctor-cards">
+            <% doctors.forEach(d => { %>
+            <div class="doctor-card" tabindex="0">
+              <img src="<%= d.img %>" alt="<%= d.name %>" />
+              <h3><%= d.name %></h3>
+              <p><%= d.field %></p>
+              <div
+                class="doctor-details"
+                style="display: none; text-align: left; margin-top: 10px"
+              >
+                <p><strong>Experience:</strong> <%= d.experience %></p>
+                <p><strong>Qualification:</strong> <%= d.qualification %></p>
+                <p><strong>Rating:</strong> <%= d.rating %> / 5</p>
+              </div>
+              <button
+                onclick="window.location.href='/Appointment?doctorId=<%= d._id %>'"
+                class="book-appointment-btn"
+              >
+                Book an Appointment
+              </button>
             </div>
+            <% }) %>
+          </div>
+
+          <div class="pagination">
+            <a href="#">&lt;</a>
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">...</a>
+            <a href="#">20</a>
+            <a href="#">&gt;</a>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Removed inline footer HTML to avoid duplicate footers -->
     <script src="/js/home1.js"></script>
     <script>
-        // Toggle doctor details on card click
-        document.querySelectorAll('.doctor-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const details = card.querySelector('.doctor-details');
-                if (details.style.display === 'none' || details.style.display === '') {
-                    details.style.display = 'block';
-                } else {
-                    details.style.display = 'none';
-                }
-            });
+      // Toggle doctor details on card click
+      document.querySelectorAll(".doctor-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          const details = card.querySelector(".doctor-details");
+          if (
+            details.style.display === "none" ||
+            details.style.display === ""
+          ) {
+            details.style.display = "block";
+          } else {
+            details.style.display = "none";
+          }
         });
+      });
     </script>
-  <script>
-        window.__ow = window.__ow || {};
-        window.__ow.organizationId = "43dd45ca-5cea-4958-ab55-6ef82768cd65";
-        window.__ow.template_id = "9e7fd889-26d7-4dcf-bdfb-e8bec39c4620";
-        window.__ow.integration_name = "manual_settings";
-        window.__ow.product_name = "chatbot";   
-        ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[OpenWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.openwidget.com/openwidget.js",t.head.appendChild(n)}};!n.__ow.asyncInit&&e.init(),n.OpenWidget=n.OpenWidget||e}(window,document,[].slice))
-      </script>
-      <noscript>You need to <a href="https://www.chatbot.com/help/chat-widget/enable-javascript-in-your-browser/" rel="noopener nofollow">enable JavaScript</a> in order to use the AI chatbot tool powered by <a href="https://www.chatbot.com/" rel="noopener nofollow" target="_blank">ChatBot</a></noscript>
-      
-      <%- include('includes/footer') %>  
-    </body>
+    <script>
+      window.__ow = window.__ow || {};
+      window.__ow.organizationId = "43dd45ca-5cea-4958-ab55-6ef82768cd65";
+      window.__ow.template_id = "9e7fd889-26d7-4dcf-bdfb-e8bec39c4620";
+      window.__ow.integration_name = "manual_settings";
+      window.__ow.product_name = "chatbot";
+      (function (n, t, c) {
+        function i(n) {
+          return e._h ? e._h.apply(null, n) : e._q.push(n);
+        }
+        var e = {
+          _q: [],
+          _h: null,
+          _v: "2.0",
+          on: function () {
+            i(["on", c.call(arguments)]);
+          },
+          once: function () {
+            i(["once", c.call(arguments)]);
+          },
+          off: function () {
+            i(["off", c.call(arguments)]);
+          },
+          get: function () {
+            if (!e._h)
+              throw new Error(
+                "[OpenWidget] You can't use getters before load."
+              );
+            return i(["get", c.call(arguments)]);
+          },
+          call: function () {
+            i(["call", c.call(arguments)]);
+          },
+          init: function () {
+            var n = t.createElement("script");
+            (n.async = !0),
+              (n.type = "text/javascript"),
+              (n.src = "https://cdn.openwidget.com/openwidget.js"),
+              t.head.appendChild(n);
+          },
+        };
+        !n.__ow.asyncInit && e.init(), (n.OpenWidget = n.OpenWidget || e);
+      })(window, document, [].slice);
+    </script>
+    <noscript
+      >You need to
+      <a
+        href="https://www.chatbot.com/help/chat-widget/enable-javascript-in-your-browser/"
+        rel="noopener nofollow"
+        >enable JavaScript</a
+      >
+      in order to use the AI chatbot tool powered by
+      <a href="https://www.chatbot.com/" rel="noopener nofollow" target="_blank"
+        >ChatBot</a
+      ></noscript
+    >
+
+    <%- include('includes/footer') %>
+  </body>
 </html>
