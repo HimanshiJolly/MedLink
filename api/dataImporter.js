@@ -29,8 +29,9 @@ async function importDoctors() {
 }
 
 // Run the import if this file is executed directly
-if (require.main === module) {
-  importDoctors();
-}
+// Commented out to prevent automatic import since doctors now register themselves
+// if (require.main === module) {
+//   importDoctors();
+// }
 
 module.exports = importDoctors;

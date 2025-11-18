@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('includes/head') %>
+    <link href="styles/register.css" rel="stylesheet" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <%- include('includes/header') %>
+    <div class="container">
+      <div class="formbox register">
+        <form action="/api/doctor/register" id="registerform" method="POST">
+          <h1>Doctor Registration</h1>
+          <% if (req.query.error === "UsernameTaken") { %>
+          <div class="error">Username already taken.</div>
+          <% } else if (req.query.error === "Length") { %>
+          <div class="error">
+            Password should contain more than 8 characters.
+          </div>
+          <% } %>
+          <div class="inputbox">
+            <input
+              type="text"
+              placeholder="Name"
+              required
+              name="name"
+              id="register-name"
+            />
+            <i class="bx bxs-user"></i>
+          </div>
+          <div class="inputbox">
+            <input
+              type="text"
+              placeholder="Username"
+              required
+              name="username"
+              id="register-username"
+            />
+            <i class="bx bxs-user"></i>
+          </div>
+          <div class="inputbox">
+            <input
+              type="email"
+              placeholder="Email"
+              required
+              name="email"
+              id="register-email"
+            />
+            <i class="bx bxs-envelope"></i>
+          </div>
+          <div class="inputbox">
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              name="password"
+              id="register-password"
+            />
+            <i class="bx bxs-lock-alt"></i>
+          </div>
+          <div class="inputbox">
+            <select name="field" required id="register-field">
+              <option value="">Select Speciality</option>
+              <option value="General practitioner">General practitioner</option>
+              <option value="Dentistry">Dentistry</option>
+              <option value="Neurology">Neurology</option>
+              <option value="X-Ray">X-Ray</option>
+              <option value="Dermatology">Dermatology</option>
+              <option value="Urology">Urology</option>
+              <option value="Psychiatry">Psychiatry</option>
+            </select>
+          </div>
+          <div class="inputbox">
+            <select name="qualification" required id="register-qualification">
+              <option value="">Select Qualification</option>
+              <option value="MBBS">MBBS</option>
+              <option value="MBBch">MBBch</option>
+              <option value="MD">MD</option>
+              <option value="DO">DO</option>
+            </select>
+          </div>
+          <div class="inputbox">
+            <input
+              type="text"
+              placeholder="Experience (e.g., 5 years)"
+              required
+              name="experience"
+              id="register-experience"
+            />
+            <i class="bx bxs-briefcase"></i>
+          </div>
+          <div class="inputbox">
+            <input
+              type="text"
+              placeholder="Location (e.g., city or address)"
+              required
+              name="location"
+              id="register-location"
+            />
+            <i class="bx bxs-map"></i>
+          </div>
+
+          <button type="submit" class="btn">Register</button>
+          <p>or register with social platforms</p>
+          <div class="socialicons">
+            <a href="https://accounts.google.com/" target="_blank"
+              ><i class="bx bxl-google"></i
+            ></a>
+            <a href="https://www.facebook.com/" target="_blank"
+              ><i class="bx bxl-facebook"></i
+            ></a>
+            <a href="https://github.com/login" target="_blank "
+              ><i class="bx bxl-github"></i
+            ></a>
+            <a href="https://www.linkedin.com/login" target="_blank"
+              ><i class="bx bxl-linkedin"></i
+            ></a>
+          </div>
+        </form>
+      </div>
+      <div class="toggle-box">
+        <div class="toggle-panel toggle-right">
+          <h1>Welcome Back!</h1>
+          <p>Already have an account?</p>
+          <a href="/doctorlogin">
+            <button class="btn login-btn">Login</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.__ow = window.__ow || {};
+      window.__ow.organizationId = "43dd45ca-5cea-4958-ab55-6ef82768cd65";
+      window.__ow.template_id = "9e7fd889-26d7-4dcf-bdfb-e8bec39c4620";
+      window.__ow.integration_name = "manual_settings";
+      window.__ow.product_name = "chatbot";
+      (function (n, t, c) {
+        function i(n) {
+          return e._h ? e._h.apply(null, n) : e._q.push(n);
+        }
+        var e = {
+          _q: [],
+          _h: null,
+          _v: "2.0",
+          on: function () {
+            i(["on", c.call(arguments)]);
+          },
+          once: function () {
+            i(["once", c.call(arguments)]);
+          },
+          off: function () {
+            i(["off", c.call(arguments)]);
+          },
+          get: function () {
+            if (!e._h)
+              throw new Error(
+                "[OpenWidget] You can't use getters before load."
+              );
+            return i(["get", c.call(arguments)]);
+          },
+          call: function () {
+            i(["call", c.call(arguments)]);
+          },
+          init: function () {
+            var n = t.createElement("script");
+            (n.async = !0),
+              (n.type = "text/javascript"),
+              (n.src = "https://cdn.openwidget.com/openwidget.js"),
+              t.head.appendChild(n);
+          },
+        };
+        !n.__ow.asyncInit && e.init(), (n.OpenWidget = n.OpenWidget || e);
+      })(window, document, [].slice);
+    </script>
+    <noscript
+      >You need to
+      <a
+        href="https://www.chatbot.com/help/chat-widget/enable-javascript-in-your-browser/"
+        rel="noopener nofollow"
+        >enable JavaScript</a
+      >
+      in order to use the AI chatbot tool powered by
+      <a href="https://www.chatbot.com/" rel="noopener nofollow" target="_blank"
+        >ChatBot</a
+      ></noscript
+    >
+
+    <%- include('includes/footer') %>
+  </body>
+</html>
