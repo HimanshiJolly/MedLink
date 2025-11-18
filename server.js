@@ -81,24 +81,6 @@ app.get('/payment', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register', { req })
 })
-app.get('/doctorregister', (req, res) => {
-  res.render('doctorRegister', { req })
-})
-app.get('/doctorlogin', (req, res) => {
-  res.render('doctorLogin', { req })
-})
-app.get('/doctorprofile', async (req, res) => {
-  if (!req.session || !req.session.doctor) {
-    return res.redirect('/doctorlogin');
-  }
-  try {
-    const doctor = await Doctor.findById(req.session.doctor.id);
-    res.render('doctorProfile', { req, doctor });
-  } catch (err) {
-    console.error('Error fetching doctor profile:', err);
-    res.status(500).send('Internal Server Error');
-  }
-})
 app.get('/about', (req, res) => {
   res.render('Aboutus', { req })
 })
@@ -126,6 +108,7 @@ app.get('/finddoctor', async (req, res) => {
       query.name = { $regex: search, $options: 'i' }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (speciality && speciality !== '') {
       query.field = speciality;
     }
@@ -137,6 +120,20 @@ app.get('/finddoctor', async (req, res) => {
         query.field = { $in: speciality }
       } else {
         query.field = speciality
+=======
+    if (speciality) {
+      if (Array.isArray(speciality)) {
+        query.field = { $in: speciality };
+      } else {
+        query.field = speciality;
+      }
+    }
+    if (qualification) {
+      if (Array.isArray(qualification)) {
+        query.qualification = { $in: qualification };
+      } else {
+        query.qualification = qualification;
+>>>>>>> parent of c5b7744... doctor page changes
       }
     }
     if (qualification) {

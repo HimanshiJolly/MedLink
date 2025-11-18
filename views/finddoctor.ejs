@@ -46,8 +46,7 @@
                 <h2>Refine your search</h2>
                 <input type="text" name="search" placeholder="Search" value="<%= typeof req.query.search !== 'undefined' ? req.query.search : '' %>">
                 <h3>Speciality</h3>
-                <select name="speciality">
-                    <option value="">All Specialities</option>
+                <ul>
                     <% const specialities = [
                         { id: "general", name: "General practitioner", icon: "https://cdn-icons-png.flaticon.com/128/46/46196.png" },
                         { id: "dentistry", name: "Dentistry", icon: "https://cdn-icons-png.flaticon.com/128/3467/3467825.png" },
@@ -58,22 +57,43 @@
                         { id: "psychiatry", name: "Psychiatry", icon: "https://cdn-icons-png.flaticon.com/128/4637/4637907.png" }
                     ];
                     specialities.forEach(s => { %>
-                        <option value="<%= s.name %>" <%= req.query.speciality === s.name ? 'selected' : '' %>><%= s.name %></option>
+                        <li>
+                            <input type="checkbox" id="<%= s.id %>" name="speciality" value="<%= s.name %>" <%= (Array.isArray(req.query.speciality) ? req.query.speciality.includes(s.name) : req.query.speciality === s.name) ? 'checked' : '' %>>
+                            <label for="<%= s.id %>">
+                                <img src="<%= s.icon %>" alt="<%= s.name %>" class="speciality-logo"> <%= s.name %>
+                            </label>
+                        </li>
                     <% }); %>
-                </select>
+                </ul>
                 <h3>Qualification</h3>
-                <select name="qualification">
-                    <option value="">All Qualifications</option>
+                <ul>
                     <% ["MBBS", "MBBch", "MD", "DO"].forEach(q => { %>
-                        <option value="<%= q %>" <%= req.query.qualification === q ? 'selected' : '' %>><%= q %></option>
+                        <li>
+                            <input type="checkbox" id="<%= q.toLowerCase() %>" name="qualification" value="<%= q %>" <%= (Array.isArray(req.query.qualification) ? req.query.qualification.includes(q) : req.query.qualification === q) ? 'checked' : '' %>>
+                            <label for="<%= q.toLowerCase() %>"><%= q %></label>
+                        </li>
                     <% }) %>
-                </select>
-
+                </ul>
+                <h3>Country</h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="denmark" name="country" value="Denmark" <%= req.query.country === 'Denmark' ? 'checked' : '' %>>
+                        <label for="denmark">Denmark (DK)</label>
+                    </li>
+                </ul>
+                <h3>District</h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="copenhagen" name="district" value="Copenhagen" <%= req.query.district === 'Copenhagen' ? 'checked' : '' %>>
+                        <label for="copenhagen">Copenhagen (CPH)</label>
+                    </li>
+                </ul>
                 <button type="submit" class="update-search">Update search</button>
             </form>
 
             <div class="doctor-list">
                 <div class="list-header">
+                    <p>Showing 175 search results</p>
                     <select>
                         <option value="highest">Sort by: Highest rated</option>
                     </select>
@@ -87,12 +107,21 @@
                             <div class="doctor-details" style="display:none; text-align:left; margin-top:10px;">
                                 <p><strong>Experience:</strong> <%= d.experience %></p>
                                 <p><strong>Qualification:</strong> <%= d.qualification %></p>
-                                <p><strong>Location:</strong> <%= d.location %></p>
                                 <p><strong>Rating:</strong> <%= d.rating %> / 5</p>
                             </div>
                             <button onclick="window.location.href='/Appointment?doctorId=<%= d._id %>'" class="book-appointment-btn">Book an Appointment</button>
                         </div>
                     <% }) %>
+                </div>
+
+                <div class="pagination">
+                    <a href="#">&lt;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">...</a>
+                    <a href="#">20</a>
+                    <a href="#">&gt;</a>
                 </div>
             </div>
         </div>
