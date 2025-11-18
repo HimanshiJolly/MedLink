@@ -1,7 +1,6 @@
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
-const Doctor = require('../models/doctor')
 const Appointment = require('../models/appointment')
 const router = express.Router()
 
@@ -21,7 +20,29 @@ router.post('/login', async(req, res, next) => {
   } catch (err) {
     return next(err)
   }
-});
+})
+
+router.post('/book-appointment', async (req, res) => {
+  if (!req.session || !req.session.user) {
+    return res.status(401).send('User not logged in')
+  }
+  try {
+    const { name, email, phone, appointmentDate, speciality, doctor, timeslot, message } = req.body
+    const username = req.session.user.username
+    const newAppointment = new Appointment({
+      username,
+      doctor,
+      timeslot: new Date(timeslot),
+    })
+
+    await newAppointment.save()
+
+    res.redirect('/profile')
+  } catch (err) {
+    console.error('Error booking appointment:', err)
+    res.status(500).send('Internal Server Error')
+  }
+})
 
 router.post('/register', async(req, res, next) => {
   let { name, username, email, password } = req.body
@@ -35,7 +56,7 @@ router.post('/register', async(req, res, next) => {
       return res.status(400).redirect('/register?error=Length')
     }
 
-    await user.insertOne({ name, username, email, password });
+    await user.insertOne({ name, username, email, password })
 
     req.session.user = { username: username, name: name }
     res.redirect('/')
@@ -58,20 +79,20 @@ const User = require('../models/user');
 router.get('/user', async (req, res) => {
   if (req.session && req.session.user) {
     try {
-      let userData = await User.findOne({ name: req.session.user.name }).select('name username email').exec();
+      let userData = await User.findOne({ name: req.session.user.name }).select('name username email').exec()
       if (userData) {
-        res.json({ user: userData });
+        res.json({ user: userData })
       } else {
-        res.json({ user: null });
+        res.json({ user: null })
       }
     } catch (err) {
-      console.error('Error fetching user data:', err);
-      res.status(500).json({ error: 'Internal server error' });
+      console.error('Error fetching user data:', err)
+      res.status(500).json({ error: 'Internal server error' })
     }
   } else {
-    res.json({ user: null });
+    res.json({ user: null })
   }
-});
+})
 router.post('/reset', async(req, res, next) => {
   let { email, newPassword, confirmPassword } = req.body
   if (newPassword !== confirmPassword) {
@@ -181,78 +202,69 @@ router.get('/doctors', async (req, res, next) => {
 
 router.get('/doctorsBySpecialty', async (req, res, next) => {
   try {
-    const { specialty, date } = req.query;
+    const { specialty, date } = req.query
     if (!specialty) {
-      return res.status(400).json({ error: 'Specialty query parameter is required' });
+      return res.status(400).json({ error: 'Specialty query parameter is required' })
     }
     if (!date) {
-      return res.status(400).json({ error: 'Date query parameter is required' });
+      return res.status(400).json({ error: 'Date query parameter is required' })
     }
-
-    // Parse the date parameter to a Date object representing the start of the day
-    const selectedDate = new Date(date);
-    selectedDate.setHours(0, 0, 0, 0);
-
-    // Find doctors by specialty
-    const doctors = await Doctor.find({ field: specialty });
-
-    // Define possible timeslots for the selected date (example: 9am to 5pm every hour)
-    const possibleTimeslots = [];
-    const startHour = 9;
-    const endHour = 17;
+    const selectedDate = new Date(date)
+    selectedDate.setHours(0, 0, 0, 0)
+    const doctors = await Doctor.find({ field: specialty })
+    const possibleTimeslots = []
+    const startHour = 9
+    const endHour = 17
 
     for (let hour = startHour; hour < endHour; hour++) {
-      const slot = new Date(selectedDate);
-      slot.setHours(hour);
-      possibleTimeslots.push(slot);
+      const slot = new Date(selectedDate)
+      slot.setHours(hour)
+      possibleTimeslots.push(slot)
     }
-
-    // For each doctor, find booked timeslots on the selected date and calculate available timeslots
     const doctorsWithTimeslots = await Promise.all(doctors.map(async (doctor) => {
-      // Find appointments for this doctor on the selected date
-      const startOfDay = new Date(selectedDate);
-      const endOfDay = new Date(selectedDate);
-      endOfDay.setHours(23, 59, 59, 999);
+      const startOfDay = new Date(selectedDate)
+      const endOfDay = new Date(selectedDate)
+      endOfDay.setHours(23, 59, 59, 999)
 
       const bookedAppointments = await Appointment.find({
         doctor: doctor._id,
         timeslot: { $gte: startOfDay, $lte: endOfDay }
-      });
+      })
 
-      const bookedTimes = bookedAppointments.map(app => app.timeslot.getTime());
+      const bookedTimes = bookedAppointments.map(app => app.timeslot.getTime())
 
-      const availableTimeslots = possibleTimeslots.filter(slot => !bookedTimes.includes(slot.getTime()));
+      const availableTimeslots = possibleTimeslots.filter(slot => !bookedTimes.includes(slot.getTime()))
 
       return {
         ...doctor.toObject(),
         availableTimeslots
-      };
-    }));
+      }
+    }))
 
-    res.json(doctorsWithTimeslots);
+    res.json(doctorsWithTimeslots)
   } catch (err) {
-    next(err);
+    next(err)
   }
 });
 
 router.get('/appointments', async (req, res, next) => {
   if (!req.session || !req.session.user) {
-    return res.status(401).json({ error: 'User not logged in' });
+    return res.status(401).json({ error: 'User not logged in' })
   }
   try {
     const username = req.session.user.username;
-    const appointments = await Appointment.find({ username }).populate('doctor').exec();
+    const appointments = await Appointment.find({ username }).populate('doctor').exec()
 
     const formattedAppointments = appointments.map(app => ({
       doctorName: app.doctor.name,
       specialty: app.doctor.field,
       timeslot: app.timeslot
-    }));
+    }))
 
-    res.json(formattedAppointments);
+    res.json(formattedAppointments)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
-module.exports = router;
+module.exports = router
